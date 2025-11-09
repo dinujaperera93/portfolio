@@ -59,7 +59,7 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [] }) => (
             transition={{ delay: 0.5 }}
           >
             <HighlightedText
-              text="Specialising in Generative AI, Predictive Maintenance, and NLP. Building intelligent systems that transform data into actionable insights."
+              text="I am interested in working with machine learning and data science teams on real-world projects. My focus areas include deep learning, NLP with transformer-based models, and time-series analysis. I am particularly looking for opportunities where models are developed, deployed, and maintained in production environments."
               keywords={keywords}
             />
           </motion.p>
