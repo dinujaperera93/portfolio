@@ -101,6 +101,14 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [] }) => (
             >
               View My Work
             </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => window.open('/Dinuja_Perera_Machine_Learning_Engineer.pdf', '_blank')}
+              className="font-semibold"
+            >
+              Download CV
+            </Button>
           </motion.div>
         </motion.div>
 
