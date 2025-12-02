@@ -155,7 +155,7 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [], onOpenJobMatcher 
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Specialisation</span>
-                  <span className="text-purple-600 dark:text-purple-400 font-bold">Machine Learning</span>
+                  <span className="text-purple-600 dark:text-purple-400 font-bold">Applied Machine Learning</span>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Research</span>
