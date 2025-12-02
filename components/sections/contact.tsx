@@ -55,7 +55,7 @@ const Contact: FC = () => (
           Let&apos;s Work Together
         </h2>
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          I&apos;m always open to discussing new opportunities, collaborations, or innovative projects
+          Whether you have to discuss opportunities, ask a question, or just want to say hi, feel free to reach out!
         </p>
       </motion.div>
 
@@ -106,7 +106,7 @@ const Contact: FC = () => (
           <Card className="p-8 border-none shadow-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white h-full flex flex-col justify-center">
             <h3 className="text-3xl font-bold mb-4">Ready to Connect?</h3>
             <p className="text-blue-100 mb-6 leading-relaxed">
-              I&apos;m currently available for freelance projects, consulting opportunities, or full-time positions in Machine Learning and AI.
+              I&apos;m currently available for full-time possitions in Machine Learning and AI.
             </p>
             <div className="space-y-3">
               <Badge className="bg-white/20 text-white border-white/30 mb-4">✓ Full UK Work Rights</Badge>
@@ -136,7 +136,8 @@ const Contact: FC = () => (
       >
         <h3 className="text-2xl font-bold mb-4 dark:text-white">Looking for Collaboration?</h3>
         <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-          I&apos;m particularly interested in projects involving Generative AI, Predictive Maintenance, NLP, and Time-Series Analysis. Let&apos;s discuss how we can work together to build innovative AI solutions.
+          I&apos;m particularly interested in projects involving Applied Machine Learning, MLOps, Cloud Computing, NLP, and Time-Series Analysis.
+          <p className='mt-2'>Let&apos;s discuss how we can work together to build innovative AI solutions.</p>
         </p>
       </motion.div>
     </div>

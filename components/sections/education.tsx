@@ -57,7 +57,7 @@ const educationHistory = [
     color: 'from-pink-500 to-pink-600',
   },
   {
-    degree: 'BSc (Electronics & IT Theme)',
+    degree: 'BSc (Electronics & IT)',
     grade: 'Second Class Honours (GPA 3.24/4.00)',
     institution: 'University of Colombo, Sri Lanka',
     period: '2015-2019',
@@ -197,7 +197,7 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => (
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
-            <Card className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden dark:bg-slate-800">
+            <Card className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden dark:bg-slate-800 pb-4">
               <div className={`h-2 bg-gradient-to-r ${edu.color}`} />
               <CardHeader>
                 <div className="flex items-start gap-4">

@@ -125,6 +125,14 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
+                onClick={() => window.open('/Dinuja_Perera_Machine_Learning_Engineer.pdf', '_blank')}
+                className="hidden md:inline-flex border-gray-300 dark:border-gray-600"
+                title="Download my CV"
+              >
+                Download CV
+              </Button>
+              <Button
+                variant="outline"
                 size="icon"
                 onClick={() => setJobMatcherOpen(true)}
                 className="rounded-full border-gray-300 dark:border-gray-600 relative"
@@ -175,7 +183,11 @@ export default function Home() {
       />
 
       <section id="hero">
-        <Hero scrollToSection={scrollToSection} keywords={matchingKeywords} />
+        <Hero
+          scrollToSection={scrollToSection}
+          keywords={matchingKeywords}
+          onOpenJobMatcher={() => setJobMatcherOpen(true)}
+        />
       </section>
 
       <section id="about">
