@@ -164,7 +164,7 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
         </div>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -190,7 +190,7 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
             <p className="text-gray-600 dark:text-gray-400">Published Paper</p>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
     </div>
   </div>
 );

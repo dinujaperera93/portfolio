@@ -54,7 +54,7 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [], onOpenJobMatcher 
           </motion.h2>
 
           <motion.p
-            className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed"
+            className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
