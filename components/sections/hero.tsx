@@ -2,7 +2,7 @@
 
 import { type FC } from 'react';
 import { motion } from 'framer-motion';
-import { Award, ChevronDown, MapPin, Sparkles } from 'lucide-react';
+import { Award, ChevronDown, MapPin, Sparkles, Target } from 'lucide-react';
 
 import HighlightedText from '@/components/shared/highlighted-text';
 import { Badge } from '@/components/ui/badge';
@@ -11,9 +11,10 @@ import { Button } from '@/components/ui/button';
 interface HeroProps {
   scrollToSection: (sectionId: string) => void;
   keywords?: string[];
+  onOpenJobMatcher: () => void;
 }
 
-const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [] }) => (
+const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [], onOpenJobMatcher }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 z-0">
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
@@ -63,6 +64,30 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [] }) => (
               keywords={keywords}
             />
           </motion.p>
+
+          <motion.div
+            className="flex items-start gap-4 p-4 mb-8 rounded-2xl border border-blue-100 bg-white/80 shadow-sm dark:border-blue-900/40 dark:bg-slate-800/80 backdrop-blur-sm"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 }}
+          >
+            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600/10 to-purple-600/10 text-blue-600 dark:text-blue-300">
+              <Target className="w-6 h-6" />
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-gray-800 dark:text-gray-100">Match my experience to your role</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Paste your job description and I&apos;ll highlight the most relevant skills, projects, and research instantly.
+              </p>
+            </div>
+            <Button
+              size="sm"
+              onClick={onOpenJobMatcher}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+            >
+              Open Matcher
+            </Button>
+          </motion.div>
 
           <motion.div
             className="flex flex-wrap gap-4 mb-8"
@@ -130,11 +155,11 @@ const Hero: FC<HeroProps> = ({ scrollToSection, keywords = [] }) => (
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Specialisation</span>
-                  <span className="text-purple-600 dark:text-purple-400 font-bold">Generative AI</span>
+                  <span className="text-purple-600 dark:text-purple-400 font-bold">Machine Learning</span>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Research</span>
-                  <span className="text-pink-600 dark:text-pink-400 font-bold">NLP & ML</span>
+                  <span className="text-pink-600 dark:text-pink-400 font-bold">NLP, Deep Learning & Time Series Forecasting</span>
                 </div>
               </div>
             </div>

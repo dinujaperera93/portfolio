@@ -183,7 +183,11 @@ export default function Home() {
       />
 
       <section id="hero">
-        <Hero scrollToSection={scrollToSection} keywords={matchingKeywords} />
+        <Hero
+          scrollToSection={scrollToSection}
+          keywords={matchingKeywords}
+          onOpenJobMatcher={() => setJobMatcherOpen(true)}
+        />
       </section>
 
       <section id="about">
