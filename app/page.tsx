@@ -1,8 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Linkedin, Moon, Sun, Target } from 'lucide-react';
+import { Linkedin, Moon, Sun, Target } from 'lucide-react';
 
 import JobMatcher from '@/components/features/job-matcher';
 import About from '@/components/sections/about';
@@ -97,8 +98,17 @@ export default function Home() {
               onClick={() => scrollToSection('hero')}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
+              <div className="p-[2px] rounded-full bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200">
+                  <Image
+                    src="/dinuja-avatar.jpg"
+                    alt="Dinuja Perera portrait"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Dinuja Perera
