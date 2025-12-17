@@ -1,40 +1,41 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Brain, Linkedin, Moon, Sun, Target } from 'lucide-react';
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Linkedin, Moon, Sun, Target } from "lucide-react";
 
-import JobMatcher from '@/components/features/job-matcher';
-import About from '@/components/sections/about';
-import Contact from '@/components/sections/contact';
-import Education from '@/components/sections/education';
-import Experience from '@/components/sections/experience';
-import Hero from '@/components/sections/hero';
-import Projects from '@/components/sections/projects';
-import Skills from '@/components/sections/skills';
-import { Button } from '@/components/ui/button';
+import JobMatcher from "@/components/features/job-matcher";
+import About from "@/components/sections/about";
+import Contact from "@/components/sections/contact";
+import Education from "@/components/sections/education";
+import Experience from "@/components/sections/experience";
+import Hero from "@/components/sections/hero";
+import Projects from "@/components/sections/projects";
+import Skills from "@/components/sections/skills";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState("hero");
   const [darkMode, setDarkMode] = useState(false);
   const [jobMatcherOpen, setJobMatcherOpen] = useState(false);
   const [matchingKeywords, setMatchingKeywords] = useState<string[]>([]);
 
   useEffect(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode === 'true') {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
       setDarkMode(true);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', darkMode);
+    localStorage.setItem("darkMode", darkMode);
 
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
 
@@ -42,7 +43,15 @@ export default function Home() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = ['hero', 'about', 'experience', 'skills', 'projects', 'education', 'contact'];
+      const sections = [
+        "hero",
+        "about",
+        "experience",
+        "skills",
+        "projects",
+        "education",
+        "contact",
+      ];
       const current = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -54,24 +63,24 @@ export default function Home() {
       if (current) setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Research' },
-    { id: 'education', label: 'Education' },
-    { id: 'contact', label: 'Contact' }
+    { id: "about", label: "About" },
+    { id: "experience", label: "Experience" },
+    { id: "skills", label: "Skills" },
+    { id: "projects", label: "Research" },
+    { id: "education", label: "Education" },
+    { id: "contact", label: "Contact" },
   ];
 
   const handleKeywordsExtract = (keywords: string[]) => {
@@ -80,11 +89,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/30 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
-      <motion.nav 
+      <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled 
-            ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-lg' 
-            : 'bg-transparent'
+          scrolled
+            ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-lg"
+            : "bg-transparent"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -92,13 +101,22 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <motion.div 
+            <motion.div
               className="flex items-center gap-2 cursor-pointer"
-              onClick={() => scrollToSection('hero')}
+              onClick={() => scrollToSection("hero")}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
+              <div className="p-[2px] rounded-full bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200">
+                  <Image
+                    src="/dinuja-avatar.jpg"
+                    alt="Dinuja Perera portrait"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                </div>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Dinuja Perera
@@ -112,9 +130,9 @@ export default function Home() {
                   variant="ghost"
                   onClick={() => scrollToSection(item.id)}
                   className={`transition-colors ${
-                    activeSection === item.id 
-                      ? 'text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950' 
-                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    activeSection === item.id
+                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950"
+                      : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
                   {item.label}
@@ -125,7 +143,12 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
-                onClick={() => window.open('/Dinuja_Perera_Machine_Learning_Engineer.pdf', '_blank')}
+                onClick={() =>
+                  window.open(
+                    "/Dinuja_Perera_Machine_Learning_Engineer.pdf",
+                    "_blank"
+                  )
+                }
                 className="hidden md:inline-flex border-gray-300 dark:border-gray-600"
                 title="Download my CV"
               >
@@ -160,13 +183,18 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => window.open('https://www.linkedin.com/in/dinuja-perera/', '_blank')}
+                onClick={() =>
+                  window.open(
+                    "https://www.linkedin.com/in/dinuja-perera/",
+                    "_blank"
+                  )
+                }
                 className="rounded-full border-gray-300 dark:border-gray-600"
               >
                 <Linkedin className="w-4 h-4" />
               </Button>
               <Button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection("contact")}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
                 Get in Touch
