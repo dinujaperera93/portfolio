@@ -76,8 +76,7 @@ const projects = [
       "Keras",
       "PCA",
     ],
-    image:
-      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+    image: "/driving.jpg",
     githubUrl:
       "https://github.com/dinujaperera93/Accident-Severity-Prediction-UK",
   },
