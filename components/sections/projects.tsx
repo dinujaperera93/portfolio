@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
+import { type FC } from "react";
+import { motion } from "framer-motion";
+import { BookOpen, Github } from "lucide-react";
 
-import HighlightedText from '@/components/shared/highlighted-text';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import HighlightedText from "@/components/shared/highlighted-text";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ProjectsProps {
   keywords?: string[];
@@ -14,54 +14,121 @@ interface ProjectsProps {
 
 const projects = [
   {
-    title: 'Transformer-Based Sentiment Analysis of Company Reviews',
-    subtitle: 'MSc Dissertation - NLP & Interactive Web Application',
+    title: "Transformer-Based Sentiment Analysis of Company Reviews",
+    subtitle: "MSc Dissertation - NLP & Interactive Web Application",
     description:
-      'Leveraged NLP and transformer-based models to analyze Glassdoor employee reviews from 500 UK companies. Compared BERT, DistilBERT, RoBERTa, DeBERTa, and XLNet, with XLNet achieving 76% accuracy. Integrated topic modeling (LDA, NMF) and aspect-based sentiment analysis (NER, POS tagging) to identify key themes. Built an interactive React-based web interface for company comparison and insight generation.',
-    tags: ['NLP', 'Transformers', 'BERT', 'XLNet', 'PyTorch', 'React.js', 'LDA', 'NMF', 'AWS', 'Sentiment Analysis'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-    type: 'MSc Dissertation',
+      "Leveraged NLP and transformer-based models to analyze Glassdoor employee reviews from 500 UK companies. Compared BERT, DistilBERT, RoBERTa, DeBERTa, and XLNet, with XLNet achieving 76% accuracy. Integrated topic modeling (LDA, NMF) and aspect-based sentiment analysis (NER, POS tagging) to identify key themes. Built an interactive React-based web interface for company comparison and insight generation.",
+    tags: [
+      "NLP",
+      "Transformers",
+      "BERT",
+      "XLNet",
+      "PyTorch",
+      "React.js",
+      "LDA",
+      "NMF",
+      "AWS",
+      "Sentiment Analysis",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    type: "MSc Dissertation",
+    githubUrl:
+      "https://github.com/dinujaperera93/Metal-Part-Lifespan-Prediction-and-Defect-Classification",
   },
   {
-    title: 'Employee Churn Risk Prediction and Behavioural Analytics',
-    subtitle: 'Causal Machine Learning for Workforce Analytics',
+    title: "Employee Churn Risk Prediction and Behavioural Analytics",
+    subtitle: "Causal Machine Learning for Workforce Analytics",
     description:
-      'Developed causal machine learning models to understand employee turnover behaviours. Used Random Forest and statistical feature importance techniques to identify the most influential drivers of churn. Performed feature leakage detection, refined model input space, and enhanced model generalisation. Integrated email sentiment analysis as an additional behavioural signal. Work carried out in a Linux-based environment using object-oriented Python.',
-    tags: ['Machine Learning', 'Random Forest', 'Sentiment Analysis', 'Python', 'Scikit-learn', 'Feature Engineering', 'Linux', 'OOP'],
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
+      "Developed causal machine learning models to understand employee turnover behaviours. Used Random Forest and statistical feature importance techniques to identify the most influential drivers of churn. Performed feature leakage detection, refined model input space, and enhanced model generalisation. Integrated email sentiment analysis as an additional behavioural signal. Work carried out in a Linux-based environment using object-oriented Python.",
+    tags: [
+      "Machine Learning",
+      "Random Forest",
+      "Sentiment Analysis",
+      "Python",
+      "Scikit-learn",
+      "Feature Engineering",
+      "Linux",
+      "OOP",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
   },
   {
-    title: 'Predicting Road Accident Severity in the UK',
-    subtitle: 'Supervised Machine Learning Classification',
+    title: "Predicting Road Accident Severity in the UK",
+    subtitle: "Supervised Machine Learning Classification",
     description:
       "Applied supervised machine learning to predict the severity of road accidents across the UK using 2019 public data. Evaluated Random Forest, SVM, Decision Tree, KNN, and Deep Neural Networks. The deep neural network achieved the highest accuracy of 80.65% in classifying accidents as 'Slight,' 'Serious,' or 'Fatal.'",
-    tags: ['Machine Learning', 'Deep Learning', 'Random Forest', 'SVM', 'Neural Networks', 'Python', 'TensorFlow', 'Keras', 'PCA'],
-    image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80',
+    tags: [
+      "Machine Learning",
+      "Deep Learning",
+      "Random Forest",
+      "SVM",
+      "Neural Networks",
+      "Python",
+      "TensorFlow",
+      "Keras",
+      "PCA",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+    githubUrl:
+      "https://github.com/dinujaperera93/Accident-Severity-Prediction-UK",
   },
   {
-    title: 'Metal Part Lifespan Prediction and Defect Classification',
-    subtitle: 'Regression & Defect Detection with ML',
+    title: "Metal Part Lifespan Prediction and Defect Classification",
+    subtitle: "Regression & Defect Detection with ML",
     description:
-      'Investigated metal part manufacturing datasets to predict part lifespan and classify defects. Regression models (Linear, Lasso, Ridge, Random Forest) were compared, with Random Forest achieving 97% accuracy. For defect detection, both binary classifiers and CNNs were tested. K-Means clustering revealed distinct process parameter groups influencing part quality.',
-    tags: ['Regression', 'Classification', 'Random Forest', 'CNN', 'K-Means', 'GridSearchCV', 'TensorFlow', 'Scikit-learn'],
-    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80',
+      "Investigated metal part manufacturing datasets to predict part lifespan and classify defects. Regression models (Linear, Lasso, Ridge, Random Forest) were compared, with Random Forest achieving 97% accuracy. For defect detection, both binary classifiers and CNNs were tested. K-Means clustering revealed distinct process parameter groups influencing part quality.",
+    tags: [
+      "Regression",
+      "Classification",
+      "Random Forest",
+      "CNN",
+      "K-Means",
+      "GridSearchCV",
+      "TensorFlow",
+      "Scikit-learn",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+    githubUrl:
+      "https://github.com/dinujaperera93/Metal-Part-Lifespan-Prediction-and-Defect-Classification",
   },
   {
-    title: 'Comparative Analysis of BART and RoBERTa for Hate Speech Detection',
-    subtitle: 'Published Research - WiNLP 2022',
+    title: "Comparative Analysis of BART and RoBERTa for Hate Speech Detection",
+    subtitle: "Published Research - WiNLP 2022",
     description:
-      'Explored transformer-based approaches for detecting hate speech on YouTube and Reddit using the ETHOS dataset. Compared BART and RoBERTa for binary and multi-class classification. BART achieved 70% F1-score and 58% top-1 accuracy, outperforming RoBERTa in distinguishing hate categories including gender, race, and religion.',
-    tags: ['NLP', 'BART', 'RoBERTa', 'Transformers', 'Hate Speech Detection', 'PyTorch', 'Classification'],
-    image: 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=800&q=80',
-    publication: 'WiNLP Workshop co-located with EMNLP 2022',
+      "Explored transformer-based approaches for detecting hate speech on YouTube and Reddit using the ETHOS dataset. Compared BART and RoBERTa for binary and multi-class classification. BART achieved 70% F1-score and 58% top-1 accuracy, outperforming RoBERTa in distinguishing hate categories including gender, race, and religion.",
+    tags: [
+      "NLP",
+      "BART",
+      "RoBERTa",
+      "Transformers",
+      "Hate Speech Detection",
+      "PyTorch",
+      "Classification",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=800&q=80",
+    publication: "WiNLP Workshop co-located with EMNLP 2022",
   },
   {
-    title: 'Benchmark NLP Algorithm for Hate Speech Detection',
-    subtitle: 'Deep Learning on Social Media',
+    title: "Benchmark NLP Algorithm for Hate Speech Detection",
+    subtitle: "Deep Learning on Social Media",
     description:
-      'Tested 12 deep learning architectures, including RNNs, CNNs, transformer-based models (e.g., BERT, RoBERTa), and hybrid architectures (e.g., CNN + LSTM) to detect hate speech on social media platforms.',
-    tags: ['Deep Learning', 'BERT', 'RoBERTa', 'Social Media', 'CNN', 'LSTM', 'RNN'],
-    image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80',
+      "Tested 12 deep learning architectures, including RNNs, CNNs, transformer-based models (e.g., BERT, RoBERTa), and hybrid architectures (e.g., CNN + LSTM) to detect hate speech on social media platforms.",
+    tags: [
+      "Deep Learning",
+      "BERT",
+      "RoBERTa",
+      "Social Media",
+      "CNN",
+      "LSTM",
+      "RNN",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80",
   },
 ] as const;
 
@@ -98,12 +165,16 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
           >
             <Card className="flex h-full flex-col overflow-hidden border-none bg-white shadow-xl transition-all hover:shadow-2xl dark:bg-slate-800">
               <div className="relative h-56 bg-gray-200 dark:bg-slate-700">
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <Badge className="bg-white/90 text-blue-600">
                     <BookOpen className="w-3 h-3 mr-1" />
-                    {project.type ?? 'Research'}
+                    {project.type ?? "Research"}
                   </Badge>
                 </div>
               </div>
@@ -112,24 +183,32 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                   <HighlightedText text={project.title} keywords={keywords} />
                 </CardTitle>
                 <p className="text-blue-600 dark:text-blue-400 font-semibold">
-                  <HighlightedText text={project.subtitle} keywords={keywords} />
+                  <HighlightedText
+                    text={project.subtitle}
+                    keywords={keywords}
+                  />
                 </p>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col space-y-4">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  <HighlightedText text={project.description} keywords={keywords} />
+                  <HighlightedText
+                    text={project.description}
+                    keywords={keywords}
+                  />
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => {
-                    const isMatched = keywords.some((keyword) => tag.toLowerCase().includes(keyword.toLowerCase()));
+                    const isMatched = keywords.some((keyword) =>
+                      tag.toLowerCase().includes(keyword.toLowerCase()),
+                    );
                     return (
                       <Badge
                         key={`${project.title}-${tag}`}
                         variant="secondary"
                         className={`${
                           isMatched
-                            ? 'bg-gradient-to-r from-yellow-200 to-yellow-300 dark:from-yellow-600 dark:to-yellow-700 text-gray-900 dark:text-white font-bold border-2 border-yellow-400 dark:border-yellow-500'
-                            : 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800'
+                            ? "bg-gradient-to-r from-yellow-200 to-yellow-300 dark:from-yellow-600 dark:to-yellow-700 text-gray-900 dark:text-white font-bold border-2 border-yellow-400 dark:border-yellow-500"
+                            : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800"
                         }`}
                       >
                         {tag}
@@ -139,8 +218,22 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                 </div>
                 {project.publication && (
                   <p className="text-sm text-purple-600 dark:text-purple-400">
-                    <HighlightedText text={project.publication} keywords={keywords} />
+                    <HighlightedText
+                      text={project.publication}
+                      keywords={keywords}
+                    />
                   </p>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    <Github className="h-4 w-4" aria-hidden="true" />
+                    View on GitHub
+                  </a>
                 )}
               </CardContent>
             </Card>
@@ -158,9 +251,12 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-3xl font-bold mb-4">Published Research</h3>
           <p className="text-lg mb-2 text-blue-100">
-            &quot;Short Comparative Analysis on Pretrained BART and RoBERTa in Detecting Hate Speech on YouTube and Reddit Platforms&quot;
+            &quot;Short Comparative Analysis on Pretrained BART and RoBERTa in
+            Detecting Hate Speech on YouTube and Reddit Platforms&quot;
           </p>
-          <p className="text-blue-200">Presented at WiNLP Workshop co-located with EMNLP 2022</p>
+          <p className="text-blue-200">
+            Presented at WiNLP Workshop co-located with EMNLP 2022
+          </p>
         </div>
       </motion.div>
 
