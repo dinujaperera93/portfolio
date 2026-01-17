@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dinuja Perera",
   description: "Dinuja Perera",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
