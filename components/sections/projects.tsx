@@ -6,7 +6,13 @@ import { BookOpen, Github } from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface ProjectsProps {
   keywords?: string[];
@@ -70,8 +76,7 @@ const projects = [
       "Keras",
       "PCA",
     ],
-    image:
-      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+    image: "/driving.jpg",
     githubUrl:
       "https://github.com/dinujaperera93/Accident-Severity-Prediction-UK",
   },
@@ -112,6 +117,8 @@ const projects = [
     image:
       "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=800&q=80",
     publication: "WiNLP Workshop co-located with EMNLP 2022",
+    publicationUrl:
+      "https://underline.io/lecture/67384-short-comparative-analysis-on-pretrained-bart-and-roberta-in-detecting-hate-speech-on-youtube-and-reddit-platforms",
   },
   {
     title: "Benchmark NLP Algorithm for Hate Speech Detection",
@@ -216,26 +223,43 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                     );
                   })}
                 </div>
-                {project.publication && (
-                  <p className="text-sm text-purple-600 dark:text-purple-400">
-                    <HighlightedText
-                      text={project.publication}
-                      keywords={keywords}
-                    />
-                  </p>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                  >
-                    <Github className="h-4 w-4" aria-hidden="true" />
-                    View on GitHub
-                  </a>
-                )}
               </CardContent>
+              {(project.publication || project.githubUrl) && (
+                <CardFooter className="flex flex-col items-start gap-2">
+                  {project.publication &&
+                    (project.publicationUrl ? (
+                      <a
+                        href={project.publicationUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm font-semibold text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
+                      >
+                        <HighlightedText
+                          text={project.publication}
+                          keywords={keywords}
+                        />
+                      </a>
+                    ) : (
+                      <p className="text-sm text-purple-600 dark:text-purple-400">
+                        <HighlightedText
+                          text={project.publication}
+                          keywords={keywords}
+                        />
+                      </p>
+                    ))}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      <Github className="h-4 w-4" aria-hidden="true" />
+                      View on GitHub
+                    </a>
+                  )}
+                </CardFooter>
+              )}
             </Card>
           </motion.div>
         ))}

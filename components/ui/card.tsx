@@ -19,6 +19,11 @@ export const CardContent = ({ className, ...props }: HTMLAttributes<HTMLDivEleme
 );
 CardContent.displayName = 'CardContent';
 
+export const CardFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn('p-6 pt-0', className)} {...props} />
+);
+CardFooter.displayName = 'CardFooter';
+
 export const CardTitle = ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
   <h3 className={cn('text-lg font-semibold leading-tight tracking-tight', className)} {...props} />
 );
