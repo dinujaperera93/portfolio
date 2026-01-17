@@ -137,7 +137,7 @@ const Contact: FC = () => (
         <h3 className="text-2xl font-bold mb-4 dark:text-white">Looking for Collaboration?</h3>
         <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
           I&apos;m particularly interested in projects involving Applied Machine Learning, MLOps, Cloud Computing, NLP, and Time-Series Analysis.
-          <p className='mt-2'>Let&apos;s discuss how we can work together to build innovative AI solutions.</p>
+          <span className="mt-2 block">Let&apos;s discuss how we can work together to build innovative AI solutions.</span>
         </p>
       </motion.div>
     </div>
