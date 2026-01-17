@@ -78,7 +78,7 @@ export default function Home() {
     { id: "about", label: "About" },
     { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
-    { id: "projects", label: "Research" },
+    { id: "projects", label: "Projects" },
     { id: "education", label: "Education" },
     { id: "contact", label: "Contact" },
   ];
@@ -146,7 +146,7 @@ export default function Home() {
                 onClick={() =>
                   window.open(
                     "/Dinuja_Perera_Machine_Learning_Engineer.pdf",
-                    "_blank"
+                    "_blank",
                   )
                 }
                 className="hidden md:inline-flex border-gray-300 dark:border-gray-600"
@@ -186,7 +186,7 @@ export default function Home() {
                 onClick={() =>
                   window.open(
                     "https://www.linkedin.com/in/dinuja-perera/",
-                    "_blank"
+                    "_blank",
                   )
                 }
                 className="rounded-full border-gray-300 dark:border-gray-600"
