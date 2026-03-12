@@ -178,10 +178,14 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => (
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
             <Card className="p-6 border-none shadow-lg hover:shadow-xl transition-all bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 h-full">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${achievement.color} flex items-center justify-center mb-4`}>
-                <achievement.icon className="w-7 h-7 text-white" />
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${achievement.color} flex items-center justify-center shrink-0`}
+                >
+                  <achievement.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold dark:text-white">{achievement.title}</h3>
               </div>
-              <h3 className="text-lg font-bold mb-2 dark:text-white">{achievement.title}</h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">{achievement.description}</p>
             </Card>
           </motion.div>

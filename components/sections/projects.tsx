@@ -61,6 +61,43 @@ const projects = [
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
   },
   {
+    title: "Term Deposit Subscriber Profiling",
+    subtitle: "Customer Segmentation and Subscription Prediction",
+    description:
+      "Developed a data-driven analysis to understand customer behaviour in bank marketing campaigns and identify groups likely to subscribe to term deposit products. Explored customer demographic and campaign interaction data, prepared features, and performed behavioural analysis. Applied K-Means clustering to segment customers by financial and interaction patterns. Used DuckDB to efficiently query and analyze structured datasets during exploration.",
+    tags: [
+      "Python",
+      "DuckDB",
+      "K-Means",
+      "Pandas",
+      "Data Analysis",
+      "Customer Segmentation",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1518183214770-9cffbec72538?w=800&q=80",
+    githubUrl:
+      "https://github.com/dinujaperera93/term-deposit-subscriber-profiling",
+  },
+  {
+    title: "Unhappy Customers in Logistics Delivery",
+    subtitle: "Customer Dissatisfaction Prediction using Machine Learning",
+    description:
+      "Built a machine learning solution to detect dissatisfied customers in logistics delivery services using operational and feedback data. Identified patterns indicating poor delivery experiences and predicted likely dissatisfaction. Used LazyPredict to benchmark multiple classification algorithms and Hyperopt to optimize hyperparameters for improved performance.",
+    tags: [
+      "Python",
+      "Machine Learning",
+      "LazyPredict",
+      "Hyperopt",
+      "Scikit-learn",
+      "Pandas",
+      "Data Analysis",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+    githubUrl:
+      "https://github.com/dinujaperera93/unhappy-customers-logistics-delivery-ml",
+  },
+  {
     title: "Predicting Road Accident Severity in the UK",
     subtitle: "Supervised Machine Learning Classification",
     description:
@@ -197,7 +234,7 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                 </p>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col space-y-4">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
                   <HighlightedText
                     text={project.description}
                     keywords={keywords}

@@ -94,12 +94,16 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
             <Card className="p-6 h-full hover:shadow-2xl transition-all border-none bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 group">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <category.icon className="w-7 h-7 text-white" />
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                >
+                  <category.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <HighlightedText text={category.title} keywords={keywords} />
+                </h3>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                <HighlightedText text={category.title} keywords={keywords} />
-              </h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => {
                   const isMatched = keywords.some((keyword) => skill.toLowerCase().includes(keyword.toLowerCase()));
