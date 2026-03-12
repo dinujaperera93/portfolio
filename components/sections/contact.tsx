@@ -111,7 +111,7 @@ const Contact: FC = () => (
             <div className="space-y-3">
               <Badge className="bg-white/20 text-white border-white/30 mb-4">✓ Full UK Work Rights</Badge>
               <Badge className="bg-white/20 text-white border-white/30 mb-4">✓ Open to Relocation</Badge>
-              <Badge className="bg-white/20 text-white border-white/30 mb-4">✓ No Sponsorship Required</Badge>
+              <Badge className="bg-white/20 text-white border-white/30 mb-4">✓ No UK Visa Sponsorship Required</Badge>
             </div>
             <div className="mt-8 space-y-3">
               <Button className="w-full bg-white text-blue-600 hover:bg-blue-50" size="lg" onClick={() => (window.location.href = 'mailto:dinujakdr@gmail.com')}>

@@ -2,7 +2,7 @@
 
 import { type FC } from 'react';
 import { motion } from 'framer-motion';
-import { Award, TrendingUp, Users, Zap } from 'lucide-react';
+import { Award, ShieldCheck, TrendingUp, Users, Zap } from 'lucide-react';
 
 import HighlightedText from '@/components/shared/highlighted-text';
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +31,12 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
       title: 'Collaborative',
       description: 'Cross-functional team experience',
       color: 'from-pink-500 to-pink-600',
+    },
+    {
+      icon: ShieldCheck,
+      title: 'UK Work Rights',
+      description: 'No visa sponsorship required',
+      color: 'from-slate-600 to-slate-800',
     },
     {
       icon: TrendingUp,
