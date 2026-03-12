@@ -127,6 +127,12 @@ const Hero: FC<HeroProps> = ({
               <Award className="w-4 h-4 mr-2" />
               Tier 1 Global Talent Visa
             </Badge>
+            <Badge
+              variant="outline"
+              className="px-4 py-2 text-base border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+            >
+              No Visa Sponsorship Required (UK)
+            </Badge>
           </motion.div>
 
           <motion.div
