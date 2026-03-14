@@ -26,7 +26,7 @@ const contactDetails = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Nottingham, UK",
+    value: "United Kingdom",
     color: "from-pink-500 to-pink-600",
   },
   {

@@ -118,7 +118,7 @@ const Hero: FC<HeroProps> = ({
               className="px-4 py-2 text-base border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
             >
               <MapPin className="w-4 h-4 mr-2" />
-              Nottingham, UK
+              United Kingdom
             </Badge>
             <Badge
               variant="outline"
