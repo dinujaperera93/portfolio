@@ -2,7 +2,7 @@
 
 import { type FC } from 'react';
 import { motion } from 'framer-motion';
-import { Award, BookOpen, Star, Trophy } from 'lucide-react';
+import { Award, BookOpen, Cpu, Star, Trophy } from 'lucide-react';
 
 import HighlightedText from '@/components/shared/highlighted-text';
 import { Badge } from '@/components/ui/badge';
@@ -53,7 +53,7 @@ const educationHistory = [
       'Utilised GSM modules, microcontrollers, and sensors',
       'Strong foundation in telecommunications and embedded systems',
     ],
-    icon: '⚡',
+    icon: Cpu,
     color: 'from-pink-500 to-pink-600',
   },
   {
@@ -205,7 +205,13 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => (
               <div className={`h-2 bg-gradient-to-r ${edu.color}`} />
               <CardHeader>
                 <div className="flex items-start gap-4">
-                  <div className="text-4xl">{edu.icon}</div>
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-slate-100 text-slate-700 shadow-md dark:from-slate-700 dark:to-slate-800 dark:text-slate-100">
+                    {typeof edu.icon === 'string' ? (
+                      <span className="text-4xl">{edu.icon}</span>
+                    ) : (
+                      <edu.icon className="h-7 w-7" />
+                    )}
+                  </div>
                   <div className="flex-1">
                     <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                       <CardTitle className="text-2xl dark:text-white">
