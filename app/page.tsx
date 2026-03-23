@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Moon, Sun, Target } from "lucide-react";
+import { Linkedin, Menu, Moon, Sun, Target, X } from "lucide-react";
 
 import JobMatcher from "@/components/features/job-matcher";
 import About from "@/components/sections/about";
@@ -20,6 +20,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const [darkMode, setDarkMode] = useState(false);
   const [jobMatcherOpen, setJobMatcherOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [matchingKeywords, setMatchingKeywords] = useState<string[]>([]);
   const mediumProfileUrl = "https://medium.com/@dinujaperera93";
 
@@ -89,8 +90,19 @@ export default function Home() {
     setMatchingKeywords(keywords);
   };
 
+  const handleNavItemClick = (item: (typeof navItems)[number]) => {
+    setMobileMenuOpen(false);
+
+    if ("href" in item) {
+      window.open(item.href, "_blank");
+      return;
+    }
+
+    scrollToSection(item.id);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/30 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
+    <div className="min-h-screen overflow-x-clip bg-gradient-to-b from-slate-50 via-blue-50/30 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
@@ -101,10 +113,10 @@ export default function Home() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6">
+          <div className="flex min-w-0 justify-between items-center gap-3">
             <motion.div
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex flex-1 items-center gap-2 cursor-pointer min-w-0"
               onClick={() => scrollToSection("hero")}
               whileHover={{ scale: 1.05 }}
             >
@@ -120,7 +132,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="truncate text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Dinuja Perera
               </span>
             </motion.div>
@@ -130,14 +142,7 @@ export default function Home() {
                 <Button
                   key={item.id ?? item.label}
                   variant="ghost"
-                  onClick={() => {
-                    if ("href" in item) {
-                      window.open(item.href, "_blank");
-                      return;
-                    }
-
-                    scrollToSection(item.id);
-                  }}
+                  onClick={() => handleNavItemClick(item)}
                   className={`transition-colors ${
                     item.id && activeSection === item.id
                       ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950"
@@ -149,7 +154,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
               <Button
                 variant="outline"
                 onClick={() =>
@@ -167,7 +172,7 @@ export default function Home() {
                 variant="outline"
                 size="icon"
                 onClick={() => setJobMatcherOpen(true)}
-                className="rounded-full border-gray-300 dark:border-gray-600 relative"
+                className="hidden md:inline-flex rounded-full border-gray-300 dark:border-gray-600 relative"
                 title="Match with Job Description"
               >
                 <Target className="w-4 h-4" />
@@ -181,7 +186,7 @@ export default function Home() {
                 variant="outline"
                 size="icon"
                 onClick={() => setDarkMode(!darkMode)}
-                className="rounded-full border-gray-300 dark:border-gray-600"
+                className="hidden md:inline-flex rounded-full border-gray-300 dark:border-gray-600"
               >
                 {darkMode ? (
                   <Sun className="w-4 h-4 text-yellow-500" />
@@ -198,18 +203,117 @@ export default function Home() {
                     "_blank",
                   )
                 }
-                className="rounded-full border-gray-300 dark:border-gray-600"
+                className="hidden md:inline-flex rounded-full border-gray-300 dark:border-gray-600"
               >
                 <Linkedin className="w-4 h-4" />
               </Button>
               <Button
                 onClick={() => scrollToSection("contact")}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="hidden md:inline-flex bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
                 Get in Touch
               </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setMobileMenuOpen((open) => !open)}
+                className="md:hidden rounded-full border-gray-300 dark:border-gray-600"
+                title={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-4 h-4" />
+                ) : (
+                  <Menu className="w-4 h-4" />
+                )}
+              </Button>
             </div>
           </div>
+
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 rounded-3xl border border-slate-200/80 bg-white/95 p-3 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/95">
+              <div className="grid grid-cols-1 gap-2">
+                {navItems.map((item) => (
+                  <Button
+                    key={`mobile-${item.id ?? item.label}`}
+                    variant="ghost"
+                    onClick={() => handleNavItemClick(item)}
+                    className={`justify-start rounded-2xl px-4 py-3 text-left ${
+                      item.id && activeSection === item.id
+                        ? "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
+                        : "text-slate-700 dark:text-slate-200"
+                    }`}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </div>
+
+              <div className="mt-3 grid grid-cols-1 gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setJobMatcherOpen(true);
+                  }}
+                  className="justify-center rounded-2xl border-gray-300 dark:border-gray-600 relative"
+                >
+                  Match Job
+                  {matchingKeywords.length > 0 && (
+                    <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-1.5 text-xs text-white">
+                      {matchingKeywords.length}
+                    </span>
+                  )}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setDarkMode(!darkMode);
+                  }}
+                  className="justify-center rounded-2xl border-gray-300 dark:border-gray-600"
+                >
+                  {darkMode ? "Light Mode" : "Dark Mode"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.open(
+                      "/Dinuja_Perera_Machine_Learning_Engineer.pdf",
+                      "_blank",
+                    );
+                  }}
+                  className="justify-center rounded-2xl border-gray-300 dark:border-gray-600"
+                >
+                  Download CV
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.open(
+                      "https://www.linkedin.com/in/dinuja-perera/",
+                      "_blank",
+                    );
+                  }}
+                  className="justify-center rounded-2xl border-gray-300 dark:border-gray-600"
+                >
+                  LinkedIn
+                </Button>
+                <Button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    scrollToSection("contact");
+                  }}
+                  className="justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  Get in Touch
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </motion.nav>
 
