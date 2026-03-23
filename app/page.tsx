@@ -21,6 +21,7 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [jobMatcherOpen, setJobMatcherOpen] = useState(false);
   const [matchingKeywords, setMatchingKeywords] = useState<string[]>([]);
+  const mediumProfileUrl = "https://medium.com/@dinujaperera93";
 
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -80,6 +81,7 @@ export default function Home() {
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
     { id: "education", label: "Education" },
+    { label: "Blogs", href: mediumProfileUrl },
     { id: "contact", label: "Contact" },
   ];
 
@@ -126,11 +128,18 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
                 <Button
-                  key={item.id}
+                  key={item.id ?? item.label}
                   variant="ghost"
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => {
+                    if ("href" in item) {
+                      window.open(item.href, "_blank");
+                      return;
+                    }
+
+                    scrollToSection(item.id);
+                  }}
                   className={`transition-colors ${
-                    activeSection === item.id
+                    item.id && activeSection === item.id
                       ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950"
                       : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
