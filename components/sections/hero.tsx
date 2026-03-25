@@ -2,7 +2,14 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Award, ChevronDown, Github, MapPin, Sparkles, Target } from "lucide-react";
+import {
+  Award,
+  ChevronDown,
+  Github,
+  MapPin,
+  Sparkles,
+  Target,
+} from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +20,7 @@ interface HeroProps {
   keywords?: string[];
   onOpenJobMatcher: () => void;
   githubProfileUrl: string;
+  mediumProfileUrl: string;
 }
 
 const supportingRoles = ["NLP & Predictive Modelling", "Data Science"] as const;
@@ -22,6 +30,7 @@ const Hero: FC<HeroProps> = ({
   keywords = [],
   onOpenJobMatcher,
   githubProfileUrl,
+  mediumProfileUrl,
 }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 z-0">
@@ -77,7 +86,7 @@ const Hero: FC<HeroProps> = ({
                 <Badge
                   key={role}
                   variant="outline"
-                  className="rounded-full border-blue-200 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-sm dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200"
+                  className="rounded-full border-2 border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 px-4 py-2 text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-16px_rgba(59,130,246,0.55)] backdrop-blur-md dark:border-slate-600 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700 dark:text-slate-100 dark:shadow-[0_12px_28px_-18px_rgba(129,140,248,0.45)]"
                 >
                   <HighlightedText text={role} keywords={keywords} />
                 </Badge>
@@ -92,6 +101,7 @@ const Hero: FC<HeroProps> = ({
             transition={{ delay: 0.5 }}
           >
             <HighlightedText
+              // text="Machine Learning Engineer with 2+ years of experience developing supervised, unsupervised, and deep learning models across predictive maintenance, NLP, and customer analytics. Recognized for building LSTM and ESN time-series models achieving under 3% prediction error on 200 turbine sensor streams, and for delivering research presented at WiNLP 2022, collocated with EMNLP international conference. Combines strong Python development and end-to-end ML pipeline expertise with a proven ability to contextualize complex data from diverse sources to deliver actionable intelligence for technical and non-technical stakeholders alike."
               text="I am interested in working with machine learning and data science teams on real-world projects. My focus areas include deep learning, NLP with transformer-based models, and time-series analysis. I am particularly looking for opportunities where models are developed, deployed, and maintained in production environments."
               keywords={keywords}
             />
@@ -148,7 +158,7 @@ const Hero: FC<HeroProps> = ({
               variant="outline"
               className="px-4 py-2 text-base border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
             >
-              No Visa Sponsorship Required (UK)
+              Full UK Work Rights | Not Required Sponsorship
             </Badge>
           </motion.div>
 
@@ -194,6 +204,14 @@ const Hero: FC<HeroProps> = ({
             >
               <Github className="mr-2 h-4 w-4" />
               GitHub
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.open(mediumProfileUrl, "_blank")}
+              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+            >
+              Blogs
             </Button>
           </motion.div>
         </motion.div>

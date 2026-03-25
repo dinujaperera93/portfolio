@@ -2,7 +2,15 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, Calendar } from "lucide-react";
+import {
+  BarChart3,
+  Briefcase,
+  Calendar,
+  GraduationCap,
+  HardHat,
+  LineChart,
+  Settings2,
+} from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +22,24 @@ interface ExperienceProps {
 
 const experiences = [
   {
-    title: "KTP Associate – Machine Learning Engineer (Predictive Maintenance)",
+    title: "Upskilling Residency",
+    company: "Apziva",
+    period: "Feb 2026 - Present",
+    location: "United Kingdom",
+    achievements: [
+      "Completing an intensive upskilling program focused on ML deployment capabilities, production-grade ML pipelines, and MLOps workflows including containerized model delivery",
+      "Built a two-stage ML pipeline using Python to predict bank customers likely to subscribe to term deposits using demographic and campaign data",
+      "Segmented subscribers into 6 clusters using K-Means to optimize call timing, campaign strategy, and customer engagement, reducing unnecessary campaign calls and saving 1,693 staff hours across 40,000 customers",
+      "Built a model to identify drivers of customer dissatisfaction in logistics surveys using ensemble methods on a highly imbalanced dataset",
+      "Achieved 0.77 recall for unhappy customers, identified 2 key questions driving dissatisfaction, and informed service improvement and survey redesign",
+      "Developed an NLP-based candidate ranking system comparing TF-IDF, Word2Vec, FastText, and GloVe with transformer-based models including BERT, all-MiniLM-L6-v2, and E5-small",
+      "Visualized embeddings with PCA and t-SNE and used cosine similarity to rank candidates, reducing manual screening effort",
+    ],
+    color: "from-cyan-500 to-blue-600",
+    icon: Settings2,
+  },
+  {
+    title: "Machine Learning Engineer (Predictive Maintenance)",
     company: "Uniper UK | Loughborough University",
     period: "June 2024 - Present",
     location: "United Kingdom",
@@ -27,6 +52,7 @@ const experiences = [
       "Worked closely with government, academic, and industry partners to align technical work with operational needs",
     ],
     color: "from-blue-500 to-blue-600",
+    icon: LineChart,
   },
   {
     title: "Machine Learning Engineer",
@@ -42,6 +68,7 @@ const experiences = [
       "Maintained ML pipelines to enable model reuse on future incoming data",
     ],
     color: "from-purple-500 to-purple-600",
+    icon: Briefcase,
   },
   {
     title: "Teaching Assistant",
@@ -54,18 +81,20 @@ const experiences = [
       "Co-ordinated grading assignments, conducting code reviews, and invigilating exams for undergraduate and master's level programmes",
     ],
     color: "from-pink-500 to-pink-600",
+    icon: GraduationCap,
   },
   {
     title: "Data Analyst",
     company: "Brandix Apparel Limited",
     period: "Jun 2019",
-    location: "Colombo District, Sri Lanka",
+    location: "Sri Lanka",
     achievements: [
       "Analysed spare parts datasets using Microsoft Excel pivot tables to ensure data accuracy",
       "Collaborated with cross-functional teams to identify and rectify data quality issues",
       "Conducted assessments of discrepancies and inaccuracies to enhance overall data integrity",
     ],
     color: "from-indigo-500 to-indigo-600",
+    icon: BarChart3,
   },
   {
     title: "Engineering Trainee",
@@ -78,6 +107,7 @@ const experiences = [
       "Assigned to the Department of Air Navigation and Engineering to enhance operational efficiency",
     ],
     color: "from-emerald-500 to-emerald-600",
+    icon: HardHat,
   },
 ] as const;
 
@@ -98,7 +128,7 @@ const Experience: FC<ExperienceProps> = ({ keywords = [] }) => (
           Professional Journey
         </h2>
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          Building AI solutions across industries and academia
+          Building ML solutions across industries and academia
         </p>
       </motion.div>
 
@@ -117,7 +147,7 @@ const Experience: FC<ExperienceProps> = ({ keywords = [] }) => (
                   <div
                     className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center flex-shrink-0`}
                   >
-                    <Briefcase className="w-6 h-6 text-white" />
+                    <exp.icon className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1">
                     <CardTitle className="text-xl mb-2 dark:text-white">

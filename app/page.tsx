@@ -354,6 +354,7 @@ export default function Home() {
           keywords={matchingKeywords}
           onOpenJobMatcher={() => setJobMatcherOpen(true)}
           githubProfileUrl={githubProfileUrl}
+          mediumProfileUrl={mediumProfileUrl}
         />
       </section>
 
