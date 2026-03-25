@@ -133,7 +133,7 @@ const Contact: FC = () => (
           <Card className="p-8 border-none shadow-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white h-full flex flex-col justify-center">
             <h3 className="text-3xl font-bold mb-4">Ready to Connect?</h3>
             <p className="text-blue-100 mb-6 leading-relaxed">
-              I&apos;m currently available for full-time possitions in Machine
+              I&apos;m currently available for full-time positions in Machine
               Learning and AI.
             </p>
             <div className="space-y-3">
