@@ -13,6 +13,15 @@ interface AboutProps {
 }
 
 const About: FC<AboutProps> = ({ keywords = [] }) => {
+  const capabilityHighlights = [
+    'Python & ML Development',
+    'Deep Learning (LSTM, ESN, RNN)',
+    'Scalable Data Pipelines',
+    'NLP & Transformer Models',
+    'SQL & Database Management',
+    'Model Explainability (SHAP/LIME)',
+  ];
+
   const highlights = [
     {
       icon: Award,
@@ -63,7 +72,7 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             Transforming Data into Intelligence
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Machine Learning Engineer with a passion for building AI systems that solve real-world problems
+            Machine Learning Engineer with a passion for building ML systems that solve real-world problems
           </p>
         </motion.div>
 
@@ -110,12 +119,21 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Card className="p-8 border-none shadow-xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
-              <h3 className="text-3xl font-bold mb-6">Core Competencies</h3>
-              <ul className="space-y-4 text-blue-50">
-                <li>• Generative AI solutions for enterprise</li>
-                <li>• Predictive maintenance and time-series analytics</li>
-                <li>• NLP pipelines and conversational AI</li>
-                <li>• Cloud-native ML deployment strategies</li>
+              <div className="mb-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100/80">
+                  What I Bring
+                </p>
+                <h3 className="text-3xl font-bold mt-3">Core Competencies</h3>
+              </div>
+              <ul className="grid gap-4 sm:grid-cols-2 text-blue-50">
+                {capabilityHighlights.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm"
+                  >
+                    <HighlightedText text={item} keywords={keywords} />
+                  </li>
+                ))}
               </ul>
             </Card>
           </motion.div>

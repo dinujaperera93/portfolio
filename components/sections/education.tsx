@@ -2,7 +2,7 @@
 
 import { type FC } from 'react';
 import { motion } from 'framer-motion';
-import { Award, BookOpen, Cpu, Star, Trophy } from 'lucide-react';
+import { Award, BookOpen, Cpu, ExternalLink, Star, Trophy } from 'lucide-react';
 
 import HighlightedText from '@/components/shared/highlighted-text';
 import { Badge } from '@/components/ui/badge';
@@ -74,14 +74,87 @@ const educationHistory = [
 
 const certifications = [
   {
-    title: 'Leadership & Management - CMI Level 5 Equivalent',
-    issuer: 'Ashorne Hill Management College, UK',
-    category: 'Leadership',
+    title: 'Introduction to Large Language Models',
+    issuer: 'Google Cloud',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/V7R0CGMIXDV0',
   },
   {
-    title: 'British Airways Data Science Job Simulation on Forage',
-    issuer: 'April 2024',
+    title: 'DeepLearning.AI TensorFlow Developer Specialization',
+    issuer: 'DeepLearning.AI',
+    category: 'Technical',
+    credentialUrl:
+      'https://www.coursera.org/account/accomplishments/specialization/CZPIMWXPCSW5',
+  },
+  {
+    title: 'Natural Language Processing in TensorFlow',
+    issuer: 'DeepLearning.AI',
+    category: 'Technical',
+    credentialUrl:
+      'https://www.coursera.org/account/accomplishments/verify/LY882WRHMCPU',
+  },
+  {
+    title: 'Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning',
+    issuer: 'DeepLearning.AI',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/51UFSYCXKR4J',
+  },
+  {
+    title: 'Convolutional Neural Networks in TensorFlow',
+    issuer: 'DeepLearning.AI',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/PQQ7NMAXPXAG',
+  },
+  {
+    title: 'Sequences, Time Series and Prediction',
+    issuer: 'DeepLearning.AI',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/7RQNK51PO41V',
+  },
+  {
+    title: 'Improving your Statistical Inferences',
+    issuer: 'Eindhoven University of Technology',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/LMJI0W969KHG',
+  },
+  {
+    title: 'Improving Your Statistical Questions',
+    issuer: 'Eindhoven University of Technology',
+    category: 'Technical',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/6GGN9RDGO33L',
+  },
+  {
+    title: 'Leadership & Management Development Programme',
+    issuer: 'Ashorne Hill Management College',
+    category: 'Leadership',
+    credentialUrl:
+      'https://www.linkedin.com/in/dinuja-perera/overlay/Certifications/1700553887/treasury?profileId=ACoAABWgzJUBfucuc3Asv13KRe87vpbYo5OLWK0',
+  },
+  {
+    title: 'Knowledge Transfer Partnership Associate',
+    issuer: 'Innovate UK',
     category: 'Industry',
+  },
+  {
+    title: 'British Airways - Data Science Job Simulation',
+    issuer: 'Forage',
+    category: 'Industry',
+    credentialUrl:
+      'https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/British%20Airways/NjynCWzGSaWXQCxSX_British%20Airways_NcCmkqNi2obQmzsZa_1712446000711_completion_certificate.pdf',
+  },
+  {
+    title: 'Amazon Web Services Machine Learning Essential Training',
+    issuer: 'LinkedIn',
+    category: 'Technical',
+    credentialUrl:
+      'https://www.linkedin.com/learning/certificates/8f2c5cdb5e35f3559e2971b8784d76dc002d8cd6863ed4e145b1bbaf1d7f2796?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B9KzYwmCkTIiRXOpMYtLhNQ%3D%3D',
+  },
+  {
+    title: 'Python Practice: Object-Oriented Programming',
+    issuer: 'LinkedIn',
+    category: 'Technical',
+    credentialUrl:
+      'https://www.linkedin.com/learning/certificates/cdc9e826f74c801ffeba421bc42740fcee93e45671d57de05bc0fc02a185c16b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B9KzYwmCkTIiRXOpMYtLhNQ%3D%3D',
   },
   {
     title: 'Advanced NLP',
@@ -125,6 +198,8 @@ const certificationStyles: Record<
     text: 'text-slate-700 dark:text-slate-200',
   },
 };
+
+const certificationCategoryOrder = ['Industry', 'Technical', 'Leadership'] as const;
 
 const achievements = [
   {
@@ -256,37 +331,107 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => (
         transition={{ duration: 0.6, delay: 0.3 }}
         className="mt-16"
       >
-        <Card className="border-none shadow-xl bg-gradient-to-br from-white to-gray-50 dark:from-slate-800 dark:to-slate-900">
+        <Card className="border border-slate-200/80 bg-white/90 shadow-xl dark:border-slate-700 dark:bg-slate-900">
           <CardHeader className="pb-8">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 text-white flex items-center justify-center shadow-lg">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 text-white shadow-lg">
                   <BookOpen className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle className="text-3xl font-bold dark:text-white">Professional Certifications</CardTitle>
+                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">
+                    Continuous Learning
+                  </p>
+                  <CardTitle className="mt-2 text-3xl font-bold dark:text-white">
+                    Professional Certifications
+                  </CardTitle>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+                    Recent certifications across machine learning, generative AI, statistics, industry simulations, and leadership development.
+                  </p>
                 </div>
+              </div>
+              <div className="grid grid-cols-3 gap-2 self-start lg:self-auto">
+                {certificationCategoryOrder.map((category) => {
+                  const total = certifications.filter((certificate) => certificate.category === category).length;
+
+                  return (
+                    <div
+                      key={category}
+                      className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-center dark:border-slate-700 dark:bg-slate-800"
+                    >
+                      <p className="text-2xl font-bold text-slate-900 dark:text-white">{total}</p>
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+                        {category}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
-              {certifications.map((certificate) => {
-                const style = certificationStyles[certificate.category];
+          <CardContent className="py-6">
+            <div className="space-y-6">
+              {certificationCategoryOrder.map((category) => {
+                const groupedCertifications = certifications.filter(
+                  (certificate) => certificate.category === category,
+                );
+
+                if (groupedCertifications.length === 0) {
+                  return null;
+                }
+
                 return (
-                  <div key={certificate.title} className={`rounded-3xl px-6 py-5 transition-all ${style.panel} hover:-translate-y-0.5 hover:shadow-md`}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <Badge className={`${style.badge} text-xs font-semibold uppercase tracking-wider px-3 py-1`}>
-                        {certificate.category}
+                  <div key={category}>
+                    <div className="mb-4 flex items-center gap-3">
+                      <Badge
+                        className={`${certificationStyles[category].badge} px-3 py-1 text-xs font-semibold uppercase tracking-wider`}
+                      >
+                        {category}
                       </Badge>
-                      <span className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">Certification</span>
+                      <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        {groupedCertifications.length} certifications
+                      </p>
                     </div>
-                    <h4 className={`text-lg font-semibold leading-tight ${style.text}`}>
-                      <HighlightedText text={certificate.title} keywords={keywords} />
-                    </h4>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                      <HighlightedText text={certificate.issuer} keywords={keywords} />
-                    </p>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {groupedCertifications.map((certificate) => {
+                        const style = certificationStyles[certificate.category];
+                        return (
+                          <div
+                            key={certificate.title}
+                            className={`rounded-3xl px-5 py-4 transition-all ${style.panel} hover:-translate-y-0.5 hover:shadow-lg`}
+                          >
+                            <div className="mb-2 flex items-center justify-between gap-3">
+                              <span className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                                Certification
+                              </span>
+                              {certificate.credentialUrl && (
+                                <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300">
+                                  Verifiable
+                                </span>
+                              )}
+                            </div>
+                            <h4 className={`text-lg font-semibold leading-tight ${style.text}`}>
+                              <HighlightedText text={certificate.title} keywords={keywords} />
+                            </h4>
+                            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                              <HighlightedText text={certificate.issuer} keywords={keywords} />
+                            </p>
+                            {certificate.credentialUrl && (
+                              <a
+                                href={certificate.credentialUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="mt-3 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-slate-50 px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-blue-500 dark:hover:bg-slate-700 dark:hover:text-blue-300"
+                              >
+                                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                                Show credential
+                              </a>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 );
               })}

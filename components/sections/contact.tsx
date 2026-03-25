@@ -2,7 +2,7 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,13 @@ const contactDetails = [
     value: "linkedin.com/in/dinuja-perera",
     link: "https://www.linkedin.com/in/dinuja-perera/",
     color: "from-purple-500 to-purple-600",
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "github.com/dinujaperera93",
+    link: "https://github.com/dinujaperera93",
+    color: "from-slate-700 to-slate-900",
   },
   {
     icon: MapPin,

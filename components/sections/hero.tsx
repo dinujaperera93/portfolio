@@ -2,7 +2,7 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Award, ChevronDown, MapPin, Sparkles, Target } from "lucide-react";
+import { Award, ChevronDown, Github, MapPin, Sparkles, Target } from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
@@ -12,12 +12,16 @@ interface HeroProps {
   scrollToSection: (sectionId: string) => void;
   keywords?: string[];
   onOpenJobMatcher: () => void;
+  githubProfileUrl: string;
 }
+
+const supportingRoles = ["NLP & Predictive Modelling", "Data Science"] as const;
 
 const Hero: FC<HeroProps> = ({
   scrollToSection,
   keywords = [],
   onOpenJobMatcher,
+  githubProfileUrl,
 }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 z-0">
@@ -56,17 +60,30 @@ const Hero: FC<HeroProps> = ({
             </span>
           </motion.h1>
 
-          <motion.h2
-            className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-6 font-semibold"
+          <motion.div
+            className="mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <HighlightedText
-              text="Machine Learning Engineer"
-              keywords={keywords}
-            />
-          </motion.h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-100">
+              <HighlightedText
+                text="Machine Learning Engineer"
+                keywords={keywords}
+              />
+            </h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {supportingRoles.map((role) => (
+                <Badge
+                  key={role}
+                  variant="outline"
+                  className="rounded-full border-blue-200 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-sm dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200"
+                >
+                  <HighlightedText text={role} keywords={keywords} />
+                </Badge>
+              ))}
+            </div>
+          </motion.div>
 
           <motion.p
             className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify"
@@ -169,6 +186,15 @@ const Hero: FC<HeroProps> = ({
             >
               Download CV
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.open(githubProfileUrl, "_blank")}
+              className="border-gray-300 dark:border-gray-600 hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300"
+            >
+              <Github className="mr-2 h-4 w-4" />
+              GitHub
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -199,10 +225,10 @@ const Hero: FC<HeroProps> = ({
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Specialisation
+                    Core Focus
                   </span>
                   <span className="text-purple-600 dark:text-purple-400 font-bold">
-                    Applied Machine Learning
+                    Machine Learning
                   </span>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl">

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Menu, Moon, Sun, Target, X } from "lucide-react";
+import { Github, Linkedin, Menu, Moon, Sun, Target, X } from "lucide-react";
 
 import JobMatcher from "@/components/features/job-matcher";
 import About from "@/components/sections/about";
@@ -23,6 +23,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [matchingKeywords, setMatchingKeywords] = useState<string[]>([]);
   const mediumProfileUrl = "https://medium.com/@dinujaperera93";
+  const githubProfileUrl = "https://github.com/dinujaperera93";
 
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -199,6 +200,20 @@ export default function Home() {
                 size="icon"
                 onClick={() =>
                   window.open(
+                    githubProfileUrl,
+                    "_blank",
+                  )
+                }
+                className="hidden md:inline-flex rounded-full border-gray-300 dark:border-gray-600"
+                title="GitHub Profile"
+              >
+                <Github className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  window.open(
                     "https://www.linkedin.com/in/dinuja-perera/",
                     "_blank",
                   )
@@ -280,6 +295,16 @@ export default function Home() {
                   variant="outline"
                   onClick={() => {
                     setMobileMenuOpen(false);
+                    window.open(githubProfileUrl, "_blank");
+                  }}
+                  className="justify-center rounded-2xl border-gray-300 dark:border-gray-600"
+                >
+                  GitHub
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
                     window.open(
                       "/Dinuja_Perera_Machine_Learning_Engineer.pdf",
                       "_blank",
@@ -328,6 +353,7 @@ export default function Home() {
           scrollToSection={scrollToSection}
           keywords={matchingKeywords}
           onOpenJobMatcher={() => setJobMatcherOpen(true)}
+          githubProfileUrl={githubProfileUrl}
         />
       </section>
 

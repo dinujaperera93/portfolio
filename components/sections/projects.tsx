@@ -2,7 +2,7 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Github } from "lucide-react";
+import { BookOpen, ExternalLink, Github } from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
@@ -30,17 +30,17 @@ const projects = [
       "BERT",
       "XLNet",
       "PyTorch",
-      "React.js",
       "LDA",
       "NMF",
       "AWS",
       "Sentiment Analysis",
     ],
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=1200",
     type: "MSc Dissertation",
     githubUrl:
       "https://github.com/dinujaperera93/Metal-Part-Lifespan-Prediction-and-Defect-Classification",
+    websiteUrl: "http://project-uog.s3-website.eu-north-1.amazonaws.com/",
   },
   {
     title: "Employee Churn Risk Prediction and Behavioural Analytics",
@@ -70,6 +70,7 @@ const projects = [
       "DuckDB",
       "K-Means",
       "Pandas",
+      "OOP",
       "Data Analysis",
       "Customer Segmentation",
     ],
@@ -89,11 +90,11 @@ const projects = [
       "LazyPredict",
       "Hyperopt",
       "Scikit-learn",
+      "OOP",
       "Pandas",
       "Data Analysis",
     ],
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+    image: "https://unsplash.com/photos/-wBjvb_tpZ4/download?force=true&w=1200",
     githubUrl:
       "https://github.com/dinujaperera93/unhappy-customers-logistics-delivery-ml",
   },
@@ -176,6 +177,11 @@ const projects = [
   },
 ] as const;
 
+const orderedProjects = [
+  ...projects.filter((project) => project.githubUrl),
+  ...projects.filter((project) => !project.githubUrl),
+] as const;
+
 const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
   <div className="py-20 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
     <div className="max-w-7xl mx-auto">
@@ -198,7 +204,7 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
       </motion.div>
 
       <div className="grid auto-rows-[minmax(0,1fr)] gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {projects.map((project, index) => (
+        {orderedProjects.map((project, index) => (
           <motion.div
             key={project.title}
             initial={{ opacity: 0, y: 30 }}
@@ -261,7 +267,9 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                   })}
                 </div>
               </CardContent>
-              {(project.publication || project.githubUrl) && (
+              {(project.publication ||
+                project.githubUrl ||
+                project.websiteUrl) && (
                 <CardFooter className="flex flex-col items-start gap-2">
                   {project.publication &&
                     (project.publicationUrl ? (
@@ -284,16 +292,39 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                         />
                       </p>
                     ))}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                    >
-                      <Github className="h-4 w-4" aria-hidden="true" />
-                      View on GitHub
-                    </a>
+                  {(project.githubUrl || project.websiteUrl) && (
+                    <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 hover:text-blue-700 dark:hover:text-blue-300"
+                        >
+                          <Github className="h-4 w-4" aria-hidden="true" />
+                          View GitHub
+                        </a>
+                      )}
+                      {project.githubUrl && project.websiteUrl && (
+                        <span className="px-1 text-gray-400 dark:text-gray-500">
+                          |
+                        </span>
+                      )}
+                      {project.websiteUrl && (
+                        <a
+                          href={project.websiteUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 hover:text-blue-700 dark:hover:text-blue-300"
+                        >
+                          <ExternalLink
+                            className="h-4 w-4"
+                            aria-hidden="true"
+                          />
+                          View Website
+                        </a>
+                      )}
+                    </div>
                   )}
                 </CardFooter>
               )}
