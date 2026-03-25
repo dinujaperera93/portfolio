@@ -1,48 +1,58 @@
-'use client';
+"use client";
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
-import { Award, ShieldCheck, TrendingUp, Users, Zap } from 'lucide-react';
+import { type FC } from "react";
+import { motion } from "framer-motion";
+import { Award, ShieldCheck, TrendingUp, Users, Zap } from "lucide-react";
 
-import HighlightedText from '@/components/shared/highlighted-text';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import HighlightedText from "@/components/shared/highlighted-text";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 interface AboutProps {
   keywords?: string[];
 }
 
 const About: FC<AboutProps> = ({ keywords = [] }) => {
+  const capabilityHighlights = [
+    "Python & ML Development",
+    "Deep Learning (LSTM, ESN, RNN)",
+    "Scalable Data Pipelines",
+    "NLP & Transformer Models",
+    "SQL & Database Management",
+    "Model Explainability (SHAP/LIME)",
+    "Accelerated Computing (GPU/TPU)",
+  ];
+
   const highlights = [
     {
       icon: Award,
-      title: 'UK Global Talent',
-      description: 'Endorsed by UK Research and Innovation (UKRI)',
-      color: 'from-blue-500 to-blue-600',
+      title: "UK Global Talent",
+      description: "Endorsed by UK Research and Innovation (UKRI)",
+      color: "from-blue-500 to-blue-600",
     },
     {
       icon: Zap,
-      title: 'AI Specialist',
-      description: 'Generative AI, LSTM, RNN, and NLP expert',
-      color: 'from-purple-500 to-purple-600',
+      title: "ML Specialist",
+      description: "Generative AI, LSTM, RNN, and NLP expert",
+      color: "from-purple-500 to-purple-600",
     },
     {
       icon: Users,
-      title: 'Collaborative',
-      description: 'Cross-functional team experience',
-      color: 'from-pink-500 to-pink-600',
+      title: "Collaborative",
+      description: "Cross-functional team experience",
+      color: "from-pink-500 to-pink-600",
     },
     {
       icon: ShieldCheck,
-      title: 'UK Work Rights',
-      description: 'No visa sponsorship required',
-      color: 'from-slate-600 to-slate-800',
+      title: "UK Work Rights",
+      description: "Full UK work rights | Sponsorship not required",
+      color: "from-slate-600 to-slate-800",
     },
     {
       icon: TrendingUp,
-      title: 'Impact Driven',
-      description: 'Real-world AI solutions for industry',
-      color: 'from-indigo-500 to-indigo-600',
+      title: "Impact Driven",
+      description: "Real-world AI solutions for industry",
+      color: "from-indigo-500 to-indigo-600",
     },
   ];
 
@@ -63,7 +73,8 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             Transforming Data into Intelligence
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Machine Learning Engineer with a passion for building AI systems that solve real-world problems
+            Machine Learning Engineer with a passion for building ML systems
+            that solve real-world problems
           </p>
         </motion.div>
 
@@ -77,7 +88,10 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
           >
             <Card className="p-8 shadow-lg dark:bg-slate-800">
               <h3 className="text-2xl font-bold mb-4 dark:text-white">
-                <HighlightedText text="AI Researcher & Engineer" keywords={keywords} />
+                <HighlightedText
+                  text="AI Researcher & Engineer"
+                  keywords={keywords}
+                />
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 <HighlightedText
@@ -88,13 +102,20 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
               <div className="space-y-4">
                 {highlights.map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
-                    <div className={`mt-1 w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                    <div
+                      className={`mt-1 w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center`}
+                    >
                       <item.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{item.title}</h4>
+                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        {item.title}
+                      </h4>
                       <p className="text-gray-600 dark:text-gray-400">
-                        <HighlightedText text={item.description} keywords={keywords} />
+                        <HighlightedText
+                          text={item.description}
+                          keywords={keywords}
+                        />
                       </p>
                     </div>
                   </div>
@@ -110,12 +131,21 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Card className="p-8 border-none shadow-xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
-              <h3 className="text-3xl font-bold mb-6">Core Competencies</h3>
-              <ul className="space-y-4 text-blue-50">
-                <li>• Generative AI solutions for enterprise</li>
-                <li>• Predictive maintenance and time-series analytics</li>
-                <li>• NLP pipelines and conversational AI</li>
-                <li>• Cloud-native ML deployment strategies</li>
+              <div className="mb-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100/80">
+                  What I Bring
+                </p>
+                <h3 className="text-3xl font-bold mt-3">Core Competencies</h3>
+              </div>
+              <ul className="grid gap-4 sm:grid-cols-2 text-blue-50">
+                {capabilityHighlights.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm"
+                  >
+                    <HighlightedText text={item} keywords={keywords} />
+                  </li>
+                ))}
               </ul>
             </Card>
           </motion.div>

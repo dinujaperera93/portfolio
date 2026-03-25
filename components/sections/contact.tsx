@@ -2,13 +2,20 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const contactDetails = [
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+44-(0)-730-713-8797",
+    link: "tel:+447307138797",
+    color: "from-indigo-500 to-indigo-600",
+  },
   {
     icon: Mail,
     label: "Email",
@@ -24,17 +31,17 @@ const contactDetails = [
     color: "from-purple-500 to-purple-600",
   },
   {
+    icon: Github,
+    label: "GitHub",
+    value: "github.com/dinujaperera93",
+    link: "https://github.com/dinujaperera93",
+    color: "from-slate-700 to-slate-900",
+  },
+  {
     icon: MapPin,
     label: "Location",
     value: "United Kingdom",
     color: "from-pink-500 to-pink-600",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+44-(0)-730-713-8797",
-    link: "tel:+447307138797",
-    color: "from-indigo-500 to-indigo-600",
   },
 ] as const;
 
@@ -130,15 +137,15 @@ const Contact: FC = () => (
               Learning and AI.
             </p>
             <div className="space-y-3">
-              <Badge className="bg-white/20 text-white border-white/30 mb-4">
+              <Badge className="bg-white/20 text-white border-white/30 mb-4 mr-2">
                 ✓ Full UK Work Rights
               </Badge>
               <Badge className="bg-white/20 text-white border-white/30 mb-4">
                 ✓ Open to Relocation
               </Badge>
-              <Badge className="bg-white/20 text-white border-white/30 mb-4">
-                ✓ No UK Visa Sponsorship Required
-              </Badge>
+              {/* <Badge className="bg-white/20 text-white border-white/30 mb-4">
+                ✓ No UK Sponsorship Required
+              </Badge> */}
             </div>
             <div className="mt-8 space-y-3">
               <Button
@@ -149,7 +156,7 @@ const Contact: FC = () => (
                 }
               >
                 <Send className="w-4 h-4 mr-2" />
-                Send an Email
+                Send a Message
               </Button>
               <Button
                 variant="outline"

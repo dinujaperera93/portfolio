@@ -2,7 +2,14 @@
 
 import { type FC } from "react";
 import { motion } from "framer-motion";
-import { Award, ChevronDown, MapPin, Sparkles, Target } from "lucide-react";
+import {
+  Award,
+  ChevronDown,
+  Github,
+  MapPin,
+  Sparkles,
+  Target,
+} from "lucide-react";
 
 import HighlightedText from "@/components/shared/highlighted-text";
 import { Badge } from "@/components/ui/badge";
@@ -12,12 +19,18 @@ interface HeroProps {
   scrollToSection: (sectionId: string) => void;
   keywords?: string[];
   onOpenJobMatcher: () => void;
+  githubProfileUrl: string;
+  mediumProfileUrl: string;
 }
+
+const supportingRoles = ["NLP & Predictive Modelling", "Data Science"] as const;
 
 const Hero: FC<HeroProps> = ({
   scrollToSection,
   keywords = [],
   onOpenJobMatcher,
+  githubProfileUrl,
+  mediumProfileUrl,
 }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 z-0">
@@ -56,17 +69,30 @@ const Hero: FC<HeroProps> = ({
             </span>
           </motion.h1>
 
-          <motion.h2
-            className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-6 font-semibold"
+          <motion.div
+            className="mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <HighlightedText
-              text="Machine Learning Engineer"
-              keywords={keywords}
-            />
-          </motion.h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-100">
+              <HighlightedText
+                text="Machine Learning Engineer"
+                keywords={keywords}
+              />
+            </h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {supportingRoles.map((role) => (
+                <Badge
+                  key={role}
+                  variant="outline"
+                  className="rounded-full border-2 border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 px-4 py-2 text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-16px_rgba(59,130,246,0.55)] backdrop-blur-md dark:border-slate-600 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700 dark:text-slate-100 dark:shadow-[0_12px_28px_-18px_rgba(129,140,248,0.45)]"
+                >
+                  <HighlightedText text={role} keywords={keywords} />
+                </Badge>
+              ))}
+            </div>
+          </motion.div>
 
           <motion.p
             className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-justify"
@@ -75,6 +101,7 @@ const Hero: FC<HeroProps> = ({
             transition={{ delay: 0.5 }}
           >
             <HighlightedText
+              // text="Machine Learning Engineer with 2+ years of experience developing supervised, unsupervised, and deep learning models across predictive maintenance, NLP, and customer analytics. Recognized for building LSTM and ESN time-series models achieving under 3% prediction error on 200 turbine sensor streams, and for delivering research presented at WiNLP 2022, collocated with EMNLP international conference. Combines strong Python development and end-to-end ML pipeline expertise with a proven ability to contextualize complex data from diverse sources to deliver actionable intelligence for technical and non-technical stakeholders alike."
               text="I am interested in working with machine learning and data science teams on real-world projects. My focus areas include deep learning, NLP with transformer-based models, and time-series analysis. I am particularly looking for opportunities where models are developed, deployed, and maintained in production environments."
               keywords={keywords}
             />
@@ -131,7 +158,7 @@ const Hero: FC<HeroProps> = ({
               variant="outline"
               className="px-4 py-2 text-base border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
             >
-              No Visa Sponsorship Required (UK)
+              Full UK Work Rights | Not Required Sponsorship
             </Badge>
           </motion.div>
 
@@ -169,6 +196,23 @@ const Hero: FC<HeroProps> = ({
             >
               Download CV
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.open(githubProfileUrl, "_blank")}
+              className="border-gray-300 dark:border-gray-600 hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300"
+            >
+              <Github className="mr-2 h-4 w-4" />
+              GitHub
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.open(mediumProfileUrl, "_blank")}
+              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+            >
+              Blogs
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -199,10 +243,10 @@ const Hero: FC<HeroProps> = ({
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Specialisation
+                    Core Focus
                   </span>
                   <span className="text-purple-600 dark:text-purple-400 font-bold">
-                    Applied Machine Learning
+                    Machine Learning
                   </span>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl">

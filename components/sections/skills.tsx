@@ -1,61 +1,88 @@
-'use client';
+"use client";
 
-import { type FC } from 'react';
-import { motion } from 'framer-motion';
-import { BarChart3, Brain, Cloud, Code, Database, Layers } from 'lucide-react';
+import { type FC } from "react";
+import { motion } from "framer-motion";
+import { BarChart3, Brain, Cloud, Code, Database, Layers } from "lucide-react";
 
-import HighlightedText from '@/components/shared/highlighted-text';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import HighlightedText from "@/components/shared/highlighted-text";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 const skillCategories = [
   {
     icon: Code,
-    title: 'Languages & Frameworks',
-    color: 'from-blue-500 to-blue-600',
-    skills: ['Python', 'TensorFlow', 'Keras', 'PyTorch', 'Scikit-learn', 'PySpark', 'Pandas'],
+    title: "Languages & Frameworks",
+    color: "from-blue-500 to-blue-600",
+    skills: [
+      "Python",
+      "TensorFlow",
+      "Keras",
+      "PyTorch",
+      "Scikit-learn",
+      "PySpark",
+      "Pandas",
+      "NumPy",
+    ],
   },
   {
     icon: Cloud,
-    title: 'Cloud & Infrastructure',
-    color: 'from-purple-500 to-purple-600',
-    skills: ['Azure Databricks', 'Google Colab', 'AWS (basic)', 'Azure DevOps'],
+    title: "Cloud & Infrastructure",
+    color: "from-purple-500 to-purple-600",
+    skills: [
+      "Azure Databricks",
+      "Google Colab",
+      "AWS S3",
+      "AWS Hadoop",
+      "AWS Spark",
+    ],
   },
   {
     icon: Database,
-    title: 'Databases',
-    color: 'from-pink-500 to-pink-600',
-    skills: ['SQL', 'MongoDB', 'Cassandra', 'Redis', 'Neo4j'],
+    title: "Databases",
+    color: "from-pink-500 to-pink-600",
+    skills: ["MySQL", "DuckDB", "MongoDB", "Cassandra", "Redis", "Neo4j"],
   },
   {
     icon: BarChart3,
-    title: 'Analytics & Visualisation',
-    color: 'from-indigo-500 to-indigo-600',
-    skills: ['Power BI', 'Tableau', 'Matplotlib', 'Seaborn', 'Excel'],
+    title: "Analytics & Visualisation",
+    color: "from-indigo-500 to-indigo-600",
+    skills: [
+      "Power BI",
+      "Tableau",
+      "Matplotlib",
+      "Seaborn",
+      "Excel Pivot Tables, R",
+    ],
   },
   {
     icon: Brain,
-    title: 'ML Models & Techniques',
-    color: 'from-emerald-500 to-emerald-600',
+    title: "ML Models & Techniques",
+    color: "from-emerald-500 to-emerald-600",
     skills: [
-      'Generative AI',
-      'LSTM',
-      'ESN',
-      'NLP',
-      'RNN',
-      'Isolation Forest',
-      'Autoencoders',
-      'Random Forest',
-      'SVM',
-      'K-Means',
-      'PCA',
+      "LSTM",
+      "ESN",
+      "NLP",
+      "RNN",
+      "Isolation Forest",
+      "Autoencoders",
+      "Random Forest",
+      "SVM",
+      "K-Means",
+      "PCA",
+      "XGBoost",
     ],
   },
   {
     icon: Layers,
-    title: 'DevOps & Collaboration',
-    color: 'from-orange-500 to-orange-600',
-    skills: ['GitHub', 'ClickUp', 'Confluence', 'Azure Project Management'],
+    title: "Generative AI",
+    color: "from-orange-500 to-orange-600",
+    skills: ["LangChain", "LLM"],
+  },
+  {
+    icon: Layers,
+    title: "Collaboration",
+    color: "from-amber-500 to-amber-600",
+    skills: ["GitHub", "ClickUp", "Confluence", "Azure Project Management"],
   },
 ] as const;
 
@@ -106,12 +133,14 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
               </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => {
-                  const isMatched = keywords.some((keyword) => skill.toLowerCase().includes(keyword.toLowerCase()));
+                  const isMatched = keywords.some((keyword) =>
+                    skill.toLowerCase().includes(keyword.toLowerCase()),
+                  );
                   return (
                     <Badge
                       key={skill}
                       variant="secondary"
-                      className={`${isMatched ? 'bg-gradient-to-r from-yellow-200 to-yellow-300 dark:from-yellow-600 dark:to-yellow-700 text-gray-900 dark:text-white font-bold border-2 border-yellow-400 dark:border-yellow-500 animate-pulse' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'} transition-colors`}
+                      className={`${isMatched ? "bg-gradient-to-r from-yellow-200 to-yellow-300 dark:from-yellow-600 dark:to-yellow-700 text-gray-900 dark:text-white font-bold border-2 border-yellow-400 dark:border-yellow-500 animate-pulse" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"} transition-colors`}
                     >
                       {skill}
                     </Badge>
@@ -122,30 +151,6 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
           </motion.div>
         ))}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="mt-16 p-8 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-950 dark:via-purple-950 dark:to-pink-950 rounded-3xl"
-      >
-        <h3 className="text-2xl font-bold mb-6 text-center dark:text-white">Specialised In</h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">GPU</div>
-            <p className="text-gray-600 dark:text-gray-400">Accelerated Computing</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">Time-Series</div>
-            <p className="text-gray-600 dark:text-gray-400">Forecasting & Analysis</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">Predictive</div>
-            <p className="text-gray-600 dark:text-gray-400">Maintenance Systems</p>
-          </div>
-        </div>
-      </motion.div>
     </div>
   </div>
 );
