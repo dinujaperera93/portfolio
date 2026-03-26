@@ -88,7 +88,7 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <Card className="p-8 shadow-lg dark:bg-slate-800">
+            <Card className="p-6 sm:p-8 shadow-lg dark:bg-slate-800">
               <h3 className="text-2xl font-bold mb-4 dark:text-white">
                 <HighlightedText text="Current Work" keywords={keywords} />
               </h3>
@@ -102,15 +102,15 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
                 {highlights.map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
                     <div
-                      className={`mt-1 w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center`}
+                      className={`mt-1 h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center sm:h-12 sm:w-12`}
                     >
-                      <item.icon className="w-6 h-6 text-white" />
+                      <item.icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
                     </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
                         {item.title}
                       </h4>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                         <HighlightedText
                           text={item.description}
                           keywords={keywords}
