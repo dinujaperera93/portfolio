@@ -16,11 +16,12 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
   const capabilityHighlights = [
     "Python & ML Development",
     "Deep Learning (LSTM, ESN, RNN)",
-    "Scalable Data Pipelines",
+    "Azure Databricks & Scalable Computing",
     "NLP & Transformer Models",
     "SQL & Database Management",
-    "Model Explainability (SHAP/LIME)",
+    "Model Evaluation & Explainability (SHAP/LIME)",
     "Accelerated Computing (GPU/TPU)",
+    "Data Engineering & Pipelines",
   ];
 
   const highlights = [
@@ -57,7 +58,7 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
   ];
 
   return (
-    <div className="py-20 px-6">
+    <div className="py-18 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,11 +70,12 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
           <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">
             About Me
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Transforming Data into Intelligence
+          <h2 className="pb-2 text-4xl md:text-5xl font-bold leading-[1.15] mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Transforming Data into Reliable Intelligence
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Machine Learning Engineer with a passion for building ML systems
+            <br />
             that solve real-world problems
           </p>
         </motion.div>
@@ -86,16 +88,13 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <Card className="p-8 shadow-lg dark:bg-slate-800">
+            <Card className="p-6 sm:p-8 shadow-lg dark:bg-slate-800">
               <h3 className="text-2xl font-bold mb-4 dark:text-white">
-                <HighlightedText
-                  text="AI Researcher & Engineer"
-                  keywords={keywords}
-                />
+                <HighlightedText text="Current Work" keywords={keywords} />
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 <HighlightedText
-                  text="With a proven track record in developing machine learning solutions, I help organisations harness data-driven insights to drive strategic decisions and innovation."
+                  text="Currently developing machine learning models to predict gas turbine trips using time-series modelling and survival analysis techniques."
                   keywords={keywords}
                 />
               </p>
@@ -103,15 +102,15 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
                 {highlights.map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
                     <div
-                      className={`mt-1 w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center`}
+                      className={`mt-1 h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center sm:h-12 sm:w-12`}
                     >
-                      <item.icon className="w-6 h-6 text-white" />
+                      <item.icon className="h-5 w-5 text-white sm:h-6 sm:w-6" />
                     </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">
                         {item.title}
                       </h4>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                         <HighlightedText
                           text={item.description}
                           keywords={keywords}
@@ -132,10 +131,9 @@ const About: FC<AboutProps> = ({ keywords = [] }) => {
           >
             <Card className="p-8 border-none shadow-xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
               <div className="mb-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100/80">
+                <p className="text-xl font-semibold uppercase tracking-[0.3em] text-blue-100/80">
                   What I Bring
                 </p>
-                <h3 className="text-3xl font-bold mt-3">Core Competencies</h3>
               </div>
               <ul className="grid gap-4 sm:grid-cols-2 text-blue-50">
                 {capabilityHighlights.map((item) => (

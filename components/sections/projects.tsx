@@ -18,12 +18,16 @@ interface ProjectsProps {
   keywords?: string[];
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const projects = [
   {
     title: "Transformer-Based Sentiment Analysis of Company Reviews",
     subtitle: "MSc Dissertation - NLP & Interactive Web Application",
     description:
-      "Leveraged NLP and transformer-based models to analyze Glassdoor employee reviews from 500 UK companies. Compared BERT, DistilBERT, RoBERTa, DeBERTa, and XLNet, with XLNet achieving 76% accuracy. Integrated topic modeling (LDA, NMF) and aspect-based sentiment analysis (NER, POS tagging) to identify key themes. Built an interactive React-based web interface for company comparison and insight generation.",
+      "Built a transformer-based NLP system to analyse employee reviews from 500 UK companies. Compared models including BERT, RoBERTa, and XLNet, achieving 76% accuracy. Integrated topic modelling and aspect-based sentiment analysis to extract key insights from text data.",
     tags: [
       "NLP",
       "Transformers",
@@ -64,7 +68,7 @@ const projects = [
     title: "Term Deposit Subscriber Profiling",
     subtitle: "Customer Segmentation and Subscription Prediction",
     description:
-      "Developed a data-driven analysis to understand customer behaviour in bank marketing campaigns and identify groups likely to subscribe to term deposit products. Explored customer demographic and campaign interaction data, prepared features, and performed behavioural analysis. Applied K-Means clustering to segment customers by financial and interaction patterns. Used DuckDB to efficiently query and analyze structured datasets during exploration.",
+      "Developed a machine learning solution to identify customers likely to subscribe to term deposit products. Performed exploratory data analysis and feature engineering on customer and campaign data. Applied K-Means clustering to segment customers based on behaviour. Used DuckDB and SQL queries within Python to analyse structured datasets efficiently. Helped identify high-value customer groups and reduce unnecessary marketing effort.",
     tags: [
       "Python",
       "DuckDB",
@@ -133,8 +137,7 @@ const projects = [
       "TensorFlow",
       "Scikit-learn",
     ],
-    image:
-      "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+    image: "https://unsplash.com/photos/ORYbuiWtg24/download?force=true&w=1200",
     githubUrl:
       "https://github.com/dinujaperera93/Metal-Part-Lifespan-Prediction-and-Defect-Classification",
   },
@@ -152,11 +155,26 @@ const projects = [
       "PyTorch",
       "Classification",
     ],
-    image:
-      "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=800&q=80",
+    image: "https://unsplash.com/photos/HBkpnDVc_Ic/download?force=true&w=1200",
     publication: "WiNLP Workshop co-located with EMNLP 2022",
     publicationUrl:
       "https://underline.io/lecture/67384-short-comparative-analysis-on-pretrained-bart-and-roberta-in-detecting-hate-speech-on-youtube-and-reddit-platforms",
+  },
+  {
+    title: "Gas Turbine Sensor Fault Detection",
+    subtitle: "Time-Series Analysis for Predictive Maintenance",
+    description:
+      "Developed machine learning approaches to analyse gas turbine sensor data and detect early signs of system faults. Used correlation and autocorrelation analysis to distinguish normal and faulty sensor behaviour. Applied time-series modelling techniques to support predictive maintenance strategies.",
+    tags: [
+      "Time-Series Analysis",
+      "Predictive Maintenance",
+      "LSTM",
+      "ESN",
+      "Correlation Analysis",
+      "Azure Databricks",
+      "Machine Learning",
+    ],
+    image: "https://unsplash.com/photos/39qkVbxzGJQ/download?force=true&w=1200",
   },
   {
     title: "Benchmark NLP Algorithm for Hate Speech Detection",
@@ -183,7 +201,7 @@ const orderedProjects = [
 ] as const;
 
 const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
-  <div className="py-20 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+  <div className="py-4 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -249,7 +267,9 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => {
                     const isMatched = keywords.some((keyword) =>
-                      tag.toLowerCase().includes(keyword.toLowerCase()),
+                      new RegExp(`\\b${escapeRegExp(keyword)}\\b`, "i").test(
+                        tag,
+                      ),
                     );
                     return (
                       <Badge

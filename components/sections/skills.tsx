@@ -51,7 +51,9 @@ const skillCategories = [
       "Tableau",
       "Matplotlib",
       "Seaborn",
-      "Excel Pivot Tables, R",
+      "Excel Pivot Tables",
+      "R",
+      "PCA",
     ],
   },
   {
@@ -68,7 +70,6 @@ const skillCategories = [
       "Random Forest",
       "SVM",
       "K-Means",
-      "PCA",
       "XGBoost",
     ],
   },
@@ -82,7 +83,7 @@ const skillCategories = [
     icon: Layers,
     title: "Collaboration",
     color: "from-amber-500 to-amber-600",
-    skills: ["GitHub", "ClickUp", "Confluence", "Azure Project Management"],
+    skills: ["GitHub", "ClickUp", "Confluence"],
   },
 ] as const;
 
@@ -90,8 +91,12 @@ interface SkillsProps {
   keywords?: string[];
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
-  <div className="py-20 px-6">
+  <div className="py-8 px-6">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -134,7 +139,9 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => {
                   const isMatched = keywords.some((keyword) =>
-                    skill.toLowerCase().includes(keyword.toLowerCase()),
+                    new RegExp(`\\b${escapeRegExp(keyword)}\\b`, "i").test(
+                      skill,
+                    ),
                   );
                   return (
                     <Badge

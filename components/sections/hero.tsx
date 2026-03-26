@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {
   Award,
   ChevronDown,
+  FilePenLine,
   Github,
   MapPin,
   Sparkles,
@@ -24,6 +25,9 @@ interface HeroProps {
 }
 
 const supportingRoles = ["NLP & Predictive Modelling", "Data Science"] as const;
+const heroPillClassName =
+  "rounded-full border-2 px-4 py-2 text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-16px_rgba(59,130,246,0.55)] backdrop-blur-md dark:border-slate-600 dark:text-slate-100 dark:shadow-[0_12px_28px_-18px_rgba(129,140,248,0.45)]";
+const heroOutlineBorderClassName = "border-blue-200/80 dark:border-slate-600";
 
 const Hero: FC<HeroProps> = ({
   scrollToSection,
@@ -39,7 +43,7 @@ const Hero: FC<HeroProps> = ({
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/10 to-purple-400/10 dark:from-blue-600/5 dark:to-purple-600/5 rounded-full blur-3xl" />
     </div>
 
-    <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+    <div className="relative z-10 max-w-7xl mx-auto px-6 py-2">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -86,7 +90,7 @@ const Hero: FC<HeroProps> = ({
                 <Badge
                   key={role}
                   variant="outline"
-                  className="rounded-full border-2 border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 px-4 py-2 text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-16px_rgba(59,130,246,0.55)] backdrop-blur-md dark:border-slate-600 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700 dark:text-slate-100 dark:shadow-[0_12px_28px_-18px_rgba(129,140,248,0.45)]"
+                  className={`${heroPillClassName} border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700`}
                 >
                   <HighlightedText text={role} keywords={keywords} />
                 </Badge>
@@ -102,33 +106,35 @@ const Hero: FC<HeroProps> = ({
           >
             <HighlightedText
               // text="Machine Learning Engineer with 2+ years of experience developing supervised, unsupervised, and deep learning models across predictive maintenance, NLP, and customer analytics. Recognized for building LSTM and ESN time-series models achieving under 3% prediction error on 200 turbine sensor streams, and for delivering research presented at WiNLP 2022, collocated with EMNLP international conference. Combines strong Python development and end-to-end ML pipeline expertise with a proven ability to contextualize complex data from diverse sources to deliver actionable intelligence for technical and non-technical stakeholders alike."
-              text="I am interested in working with machine learning and data science teams on real-world projects. My focus areas include deep learning, NLP with transformer-based models, and time-series analysis. I am particularly looking for opportunities where models are developed, deployed, and maintained in production environments."
+              text="Machine Learning Engineer with experience building data-driven solutions for real-world industrial and business problems. I am particularly looking for opportunities where models are developed, deployed, and maintained in production environments."
               keywords={keywords}
             />
           </motion.p>
 
           <motion.div
-            className="flex items-start gap-4 p-4 mb-8 rounded-2xl border border-blue-100 bg-white/80 shadow-sm dark:border-blue-900/40 dark:bg-slate-800/80 backdrop-blur-sm"
+            className="flex flex-col gap-4 p-4 mb-8 rounded-2xl border border-blue-100 bg-white/80 shadow-sm dark:border-blue-900/40 dark:bg-slate-800/80 backdrop-blur-sm sm:flex-row sm:items-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55 }}
           >
-            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600/10 to-purple-600/10 text-blue-600 dark:text-blue-300">
-              <Target className="w-6 h-6" />
-            </div>
-            <div className="flex-1">
-              <p className="font-semibold text-gray-800 dark:text-gray-100">
-                Match my experience to your role
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Paste your job description and I&apos;ll highlight the most
-                relevant skills, projects, and research instantly.
-              </p>
+            <div className="flex items-start gap-4 sm:flex-1">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600/10 to-purple-600/10 text-blue-600 dark:text-blue-300 shrink-0">
+                <Target className="w-6 h-6" />
+              </div>
+              <div className="min-w-0">
+                <p className="font-semibold text-gray-800 dark:text-gray-100">
+                  Match my experience to your role
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 sm:max-w-xl">
+                  Paste your job description and I&apos;ll highlight the most
+                  relevant skills, projects, and research instantly.
+                </p>
+              </div>
             </div>
             <Button
               size="sm"
               onClick={onOpenJobMatcher}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+              className="w-full shrink-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 sm:w-auto"
             >
               Open Matcher
             </Button>
@@ -142,21 +148,21 @@ const Hero: FC<HeroProps> = ({
           >
             <Badge
               variant="outline"
-              className="px-4 py-2 text-base border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
+              className={`${heroPillClassName} text-base border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700`}
             >
               <MapPin className="w-4 h-4 mr-2" />
               United Kingdom
             </Badge>
             <Badge
               variant="outline"
-              className="px-4 py-2 text-base border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-950 dark:text-purple-300"
+              className={`${heroPillClassName} text-base border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700`}
             >
               <Award className="w-4 h-4 mr-2" />
               Tier 1 Global Talent Visa
             </Badge>
             <Badge
               variant="outline"
-              className="px-4 py-2 text-base border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+              className={`${heroPillClassName} text-base border-blue-200/80 bg-gradient-to-r from-blue-50 via-white to-purple-50 dark:bg-gradient-to-r dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-700`}
             >
               Full UK Work Rights | Not Required Sponsorship
             </Badge>
@@ -179,7 +185,7 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("experience")}
-              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300`}
             >
               My Experience
             </Button>
@@ -200,7 +206,7 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => window.open(githubProfileUrl, "_blank")}
-              className="border-gray-300 dark:border-gray-600 hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300`}
             >
               <Github className="mr-2 h-4 w-4" />
               GitHub
@@ -209,8 +215,9 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => window.open(mediumProfileUrl, "_blank")}
-              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300`}
             >
+              <FilePenLine className="mr-2 h-4 w-4" />
               Blogs
             </Button>
           </motion.div>
@@ -233,27 +240,27 @@ const Hero: FC<HeroProps> = ({
                 className="w-full h-80 object-cover rounded-2xl mb-6"
               />
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-xl">
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
+                <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-xl sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-lg sm:text-base font-semibold text-gray-700 dark:text-gray-300">
                     Experience
                   </span>
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">
+                  <span className="text-lg sm:text-base text-blue-600 dark:text-blue-400 font-bold sm:text-right">
                     2+ Years
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl">
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
+                <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-lg sm:text-base font-semibold text-gray-700 dark:text-gray-300">
                     Core Focus
                   </span>
-                  <span className="text-purple-600 dark:text-purple-400 font-bold">
+                  <span className="text-lg sm:text-base text-purple-600 dark:text-purple-400 font-bold sm:text-right">
                     Machine Learning
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl">
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
+                <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-lg sm:text-base font-semibold text-gray-700 dark:text-gray-300">
                     Research
                   </span>
-                  <span className="text-pink-600 dark:text-pink-400 font-bold">
+                  <span className="text-lg sm:text-base text-pink-600 dark:text-pink-400 font-bold leading-snug sm:max-w-[18rem] sm:text-right">
                     NLP, Deep Learning & Time Series Forecasting
                   </span>
                 </div>
