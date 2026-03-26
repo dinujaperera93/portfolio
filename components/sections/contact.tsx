@@ -62,8 +62,8 @@ const Contact: FC = () => (
           Let&apos;s Work Together
         </h2>
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          Whether you have to discuss opportunities, ask a question, or just
-          want to say hi, feel free to reach out!
+          If you would like to discuss opportunities, ask a question, or
+          collaborate, feel free to get in touch.
         </p>
       </motion.div>
 

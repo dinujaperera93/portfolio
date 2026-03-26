@@ -51,7 +51,9 @@ const skillCategories = [
       "Tableau",
       "Matplotlib",
       "Seaborn",
-      "Excel Pivot Tables, R",
+      "Excel Pivot Tables",
+      "R",
+      "PCA",
     ],
   },
   {
@@ -68,7 +70,6 @@ const skillCategories = [
       "Random Forest",
       "SVM",
       "K-Means",
-      "PCA",
       "XGBoost",
     ],
   },
@@ -82,7 +83,7 @@ const skillCategories = [
     icon: Layers,
     title: "Collaboration",
     color: "from-amber-500 to-amber-600",
-    skills: ["GitHub", "ClickUp", "Confluence", "Azure Project Management"],
+    skills: ["GitHub", "ClickUp", "Confluence"],
   },
 ] as const;
 
