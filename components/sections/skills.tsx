@@ -91,8 +91,12 @@ interface SkillsProps {
   keywords?: string[];
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
-  <div className="py-20 px-6">
+  <div className="py-8 px-6">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -135,7 +139,9 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => {
                   const isMatched = keywords.some((keyword) =>
-                    skill.toLowerCase().includes(keyword.toLowerCase()),
+                    new RegExp(`\\b${escapeRegExp(keyword)}\\b`, "i").test(
+                      skill,
+                    ),
                   );
                   return (
                     <Badge

@@ -27,6 +27,7 @@ interface HeroProps {
 const supportingRoles = ["NLP & Predictive Modelling", "Data Science"] as const;
 const heroPillClassName =
   "rounded-full border-2 px-4 py-2 text-sm font-semibold text-slate-800 shadow-[0_10px_30px_-16px_rgba(59,130,246,0.55)] backdrop-blur-md dark:border-slate-600 dark:text-slate-100 dark:shadow-[0_12px_28px_-18px_rgba(129,140,248,0.45)]";
+const heroOutlineBorderClassName = "border-blue-200/80 dark:border-slate-600";
 
 const Hero: FC<HeroProps> = ({
   scrollToSection,
@@ -42,7 +43,7 @@ const Hero: FC<HeroProps> = ({
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/10 to-purple-400/10 dark:from-blue-600/5 dark:to-purple-600/5 rounded-full blur-3xl" />
     </div>
 
-    <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+    <div className="relative z-10 max-w-7xl mx-auto px-6 py-2">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -184,7 +185,7 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("experience")}
-              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300`}
             >
               My Experience
             </Button>
@@ -205,7 +206,7 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => window.open(githubProfileUrl, "_blank")}
-              className="border-gray-300 dark:border-gray-600 hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-slate-900 hover:text-slate-900 dark:hover:border-slate-200 dark:hover:text-slate-200 dark:text-gray-300`}
             >
               <Github className="mr-2 h-4 w-4" />
               GitHub
@@ -214,7 +215,7 @@ const Hero: FC<HeroProps> = ({
               size="lg"
               variant="outline"
               onClick={() => window.open(mediumProfileUrl, "_blank")}
-              className="border-gray-300 dark:border-gray-600 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300"
+              className={`${heroOutlineBorderClassName} hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:text-gray-300`}
             >
               <FilePenLine className="mr-2 h-4 w-4" />
               Blogs

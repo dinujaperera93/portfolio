@@ -46,7 +46,7 @@ const contactDetails = [
 ] as const;
 
 const Contact: FC = () => (
-  <div className="py-20 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+  <div className="py-4 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -83,18 +83,18 @@ const Contact: FC = () => (
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Card className="p-6 border-none shadow-lg hover:shadow-2xl transition-all cursor-pointer group dark:bg-slate-800">
-                    <div className="flex items-center gap-4">
+                  <Card className="p-3 border-none shadow-lg hover:shadow-2xl transition-all cursor-pointer group dark:bg-slate-800">
+                    <div className="flex items-center gap-3">
                       <div
-                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${contact.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
+                        className={`w-10 h-10 rounded-lg bg-gradient-to-br ${contact.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
                       >
-                        <contact.icon className="w-7 h-7 text-white" />
+                        <contact.icon className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           {contact.label}
                         </p>
-                        <p className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {contact.value}
                         </p>
                       </div>
@@ -102,18 +102,18 @@ const Contact: FC = () => (
                   </Card>
                 </a>
               ) : (
-                <Card className="p-6 border-none shadow-lg dark:bg-slate-800">
-                  <div className="flex items-center gap-4">
+                <Card className="p-3 border-none shadow-lg dark:bg-slate-800">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`w-14 h-14 rounded-xl bg-gradient-to-br ${contact.color} flex items-center justify-center`}
+                      className={`w-10 h-10 rounded-lg bg-gradient-to-br ${contact.color} flex items-center justify-center`}
                     >
-                      <contact.icon className="w-7 h-7 text-white" />
+                      <contact.icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         {contact.label}
                       </p>
-                      <p className="font-semibold text-gray-900 dark:text-gray-100">
+                      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                         {contact.value}
                       </p>
                     </div>

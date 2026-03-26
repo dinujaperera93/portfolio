@@ -22,7 +22,7 @@ interface ExperienceProps {
 
 const experiences = [
   {
-    title: "Apziva AI Residency",
+    title: "AI Residency",
     company: "Apziva",
     period: "Feb 2026 - Present",
     location: "United Kingdom",
@@ -107,7 +107,7 @@ const experiences = [
 ] as const;
 
 const Experience: FC<ExperienceProps> = ({ keywords = [] }) => (
-  <div className="py-20 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+  <div className="py-4 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

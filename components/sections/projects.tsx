@@ -18,6 +18,10 @@ interface ProjectsProps {
   keywords?: string[];
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const projects = [
   {
     title: "Transformer-Based Sentiment Analysis of Company Reviews",
@@ -197,7 +201,7 @@ const orderedProjects = [
 ] as const;
 
 const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
-  <div className="py-20 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+  <div className="py-4 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
     <div className="max-w-7xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -263,7 +267,9 @@ const Projects: FC<ProjectsProps> = ({ keywords = [] }) => (
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => {
                     const isMatched = keywords.some((keyword) =>
-                      tag.toLowerCase().includes(keyword.toLowerCase()),
+                      new RegExp(`\\b${escapeRegExp(keyword)}\\b`, "i").test(
+                        tag,
+                      ),
                     );
                     return (
                       <Badge

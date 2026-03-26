@@ -346,6 +346,7 @@ export default function Home() {
         isOpen={jobMatcherOpen}
         onClose={() => setJobMatcherOpen(false)}
         onKeywordsExtract={handleKeywordsExtract}
+        onNavigateToSection={scrollToSection}
       />
 
       <section id="hero">
