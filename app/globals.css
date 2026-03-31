@@ -10,6 +10,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .animate-skills-marquee {
+    animation: skills-marquee 28s linear infinite;
+  }
   /* Hide native scrollbars but keep scroll functionality */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -35,6 +38,15 @@ body {
   }
   .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #c3512f 0%, #ffd15b 100%);
+  }
+}
+
+@keyframes skills-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
