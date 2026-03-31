@@ -7,6 +7,7 @@ import {
   Award,
   Briefcase,
   BookOpen,
+  ChevronDown,
   Cpu,
   ExternalLink,
   Star,
@@ -544,6 +545,56 @@ const certificationCategoryOrder = [
   "Leadership",
 ] as const;
 
+type CertificationStyle = (typeof certificationStyles)[Certification["category"]];
+
+const CertificatePreviewPanel: FC<{
+  certificate: Certification;
+  style: CertificationStyle;
+}> = ({ certificate, style }) => {
+  if (!certificate.previewAsset) {
+    return null;
+  }
+
+  return (
+    <div className="relative z-0 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/95 p-3 shadow-2xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/95">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
+          Certificate Preview
+        </p>
+        <div
+          className={`h-2.5 w-16 rounded-full bg-gradient-to-r ${style.accent}`}
+        />
+      </div>
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800">
+        <Image
+          src={certificate.previewAsset.src}
+          alt={certificate.previewAsset.alt}
+          width={704}
+          height={512}
+          className="h-auto w-full object-contain"
+        />
+      </div>
+      {certificate.skills?.length ? (
+        <div className="mt-3">
+          <p className="mb-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            Skills covered
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {certificate.skills.map((skill) => (
+              <span
+                key={`${certificate.title}-${skill}`}
+                className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 const achievements = [
   {
     icon: Trophy,
@@ -583,6 +634,9 @@ const educationActiveCircleBorders = [
 const Education: FC<EducationProps> = ({ keywords = [] }) => {
   const [activeEducationIndex, setActiveEducationIndex] = useState(0);
   const [timelinePaused, setTimelinePaused] = useState(false);
+  const [expandedCertificateTitle, setExpandedCertificateTitle] = useState<
+    string | null
+  >(null);
   const activeEducation = educationHistory[activeEducationIndex];
 
   useEffect(() => {
@@ -939,6 +993,8 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                   const style = certificationStyles[certificate.category];
                   const CertificateIcon = style.icon;
                   const showPreviewOnLeft = index % 4 === 3;
+                  const isPreviewExpanded =
+                    expandedCertificateTitle === certificate.title;
 
                   return (
                     <div
@@ -989,6 +1045,47 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
 
                           {certificate.skills?.length ? (
                             <SkillsOverflowChips skills={certificate.skills} />
+                          ) : null}
+
+                          {certificate.previewAsset ? (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setExpandedCertificateTitle((currentTitle) =>
+                                  currentTitle === certificate.title
+                                    ? null
+                                    : certificate.title,
+                                )
+                              }
+                              className={`mb-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-3.5 py-2 text-xs font-semibold transition-colors xl:hidden ${style.button}`}
+                              aria-expanded={isPreviewExpanded}
+                              aria-controls={`certificate-preview-mobile-${index}`}
+                            >
+                              <ChevronDown
+                                className={`h-3.5 w-3.5 transition-transform ${
+                                  isPreviewExpanded ? "rotate-180" : ""
+                                }`}
+                                aria-hidden="true"
+                              />
+                              {isPreviewExpanded
+                                ? "Hide Preview"
+                                : "Preview Certificate"}
+                            </button>
+                          ) : null}
+
+                          {certificate.previewAsset && isPreviewExpanded ? (
+                            <motion.div
+                              id={`certificate-preview-mobile-${index}`}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.25 }}
+                              className="mb-3 xl:hidden"
+                            >
+                              <CertificatePreviewPanel
+                                certificate={certificate}
+                                style={style}
+                              />
+                            </motion.div>
                           ) : null}
 
                           {certificate.credentialUrl ? (
@@ -1067,41 +1164,11 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                               />
                             </svg>
                           </div>
-                          <div className="relative z-0 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/95 p-3 shadow-2xl backdrop-blur transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)] group-focus-within/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)] dark:border-slate-700 dark:bg-slate-900/95">
-                            <div className="mb-3 flex items-center justify-between gap-3">
-                              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
-                                Certificate Preview
-                              </p>
-                              <div
-                                className={`h-2.5 w-16 rounded-full bg-gradient-to-r ${style.accent}`}
-                              />
-                            </div>
-                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800">
-                              <Image
-                                src={certificate.previewAsset.src}
-                                alt={certificate.previewAsset.alt}
-                                width={704}
-                                height={512}
-                                className="h-auto w-full object-contain"
-                              />
-                            </div>
-                            {certificate.skills?.length ? (
-                              <div className="mt-3">
-                                <p className="mb-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
-                                  Skills covered
-                                </p>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {certificate.skills.map((skill) => (
-                                    <span
-                                      key={`${certificate.title}-${skill}`}
-                                      className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200"
-                                    >
-                                      {skill}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : null}
+                          <div className="transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)] group-focus-within/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)]">
+                            <CertificatePreviewPanel
+                              certificate={certificate}
+                              style={style}
+                            />
                           </div>
                         </div>
                       )}
