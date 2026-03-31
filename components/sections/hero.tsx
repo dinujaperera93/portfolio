@@ -253,7 +253,7 @@ const Hero: FC<HeroProps> = ({
                     Core Focus
                   </span>
                   <span className="text-lg sm:text-base text-purple-600 dark:text-purple-400 font-bold sm:text-right">
-                    Machine Learning
+                    Machine Learning / AI
                   </span>
                 </div>
                 <div className="flex flex-col gap-2 p-4 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-pink-950 dark:to-blue-950 rounded-xl sm:flex-row sm:items-center sm:justify-between">
