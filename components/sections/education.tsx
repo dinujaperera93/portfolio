@@ -1,7 +1,8 @@
 "use client";
 
-import { type FC, useEffect, useState } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Award,
   Briefcase,
@@ -20,6 +21,122 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 interface EducationProps {
   keywords?: string[];
 }
+
+interface CertificationPreviewAsset {
+  src: string;
+  alt: string;
+}
+
+interface Certification {
+  title: string;
+  issuer: string;
+  category: "Leadership" | "Industry" | "Technical";
+  credentialUrl?: string;
+  previewAsset?: CertificationPreviewAsset;
+  skills?: readonly string[];
+}
+
+const MAX_SKILL_ROWS = 3;
+
+const SkillsOverflowChips: FC<{ skills: readonly string[] }> = ({ skills }) => {
+  const measureRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const [visibleCount, setVisibleCount] = useState(skills.length);
+
+  useEffect(() => {
+    const measure = () => {
+      const items = itemRefs.current.filter(
+        (item): item is HTMLSpanElement => item !== null,
+      );
+
+      if (!items.length) {
+        setVisibleCount(skills.length);
+        return;
+      }
+
+      const rowTops: number[] = [];
+      let nextVisibleCount = items.length;
+
+      items.forEach((item, index) => {
+        const top = item.offsetTop;
+
+        if (!rowTops.some((rowTop) => Math.abs(rowTop - top) <= 2)) {
+          rowTops.push(top);
+        }
+
+        if (
+          rowTops.length > MAX_SKILL_ROWS &&
+          nextVisibleCount === items.length
+        ) {
+          nextVisibleCount = index;
+        }
+      });
+
+      setVisibleCount(nextVisibleCount);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+
+    if (measureRef.current) {
+      observer.observe(measureRef.current);
+    }
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [skills]);
+
+  const visibleSkills = skills.slice(0, visibleCount);
+  const hiddenSkills = skills.slice(visibleCount);
+
+  return (
+    <div className="mb-3">
+      <p className="mb-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+        Skills you will gain
+      </p>
+
+      <div
+        ref={measureRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 -z-10 flex flex-wrap gap-1.5 opacity-0"
+      >
+        {skills.map((skill, index) => (
+          <span
+            key={`${skill}-${index}`}
+            ref={(element) => {
+              itemRefs.current[index] = element;
+            }}
+            className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative flex flex-wrap items-start gap-1.5 overflow-visible">
+        {visibleSkills.map((skill, index) => (
+          <span
+            key={`${skill}-${index}`}
+            className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+          >
+            {skill}
+          </span>
+        ))}
+
+        {hiddenSkills.length > 0 && (
+          <span className="inline-flex items-center rounded-full bg-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-200">
+            +{hiddenSkills.length} more
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const FilledGraduationCap = ({ className }: { className?: string }) => (
   <svg
@@ -95,13 +212,24 @@ const educationHistory = [
   },
 ] as const;
 
-const certifications = [
+const certifications: readonly Certification[] = [
   {
     title: "Introduction to Large Language Models",
     issuer: "Google Cloud",
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/V7R0CGMIXDV0",
+    previewAsset: {
+      src: "/cert-introduction-to-large-language-models.png",
+      alt: "Introduction to Large Language Models certificate preview",
+    },
+    skills: [
+      "Large Language Modeling",
+      "Google Gemini",
+      "LLM Application",
+      "Prompt Engineering",
+      "Generative AI",
+    ],
   },
   {
     title: "DeepLearning.AI TensorFlow Developer Specialization",
@@ -109,6 +237,24 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/CZPIMWXPCSW5",
+    previewAsset: {
+      src: "/deeplearningai-tensorflow-developer.png",
+      alt: "DeepLearning.AI TensorFlow Developer Specialization certificate preview",
+    },
+    skills: [
+      "Applied Machine Learning",
+      "Artificial Neural Networks",
+      "Classification Algorithms",
+      "Computer Vision",
+      "Convolutional Neural Networks",
+      "Data Preprocessing",
+      "Deep Learning",
+      "Embeddings",
+      "Forecasting",
+      "Generative AI",
+      "Image Analysis",
+      "Keras (Neural Network Library)",
+    ],
   },
   {
     title: "Natural Language Processing in TensorFlow",
@@ -116,6 +262,22 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/LY882WRHMCPU",
+    previewAsset: {
+      src: "/natural-language-processing-in-tensorflow.png",
+      alt: "Natural Language Processing in TensorFlow certificate preview",
+    },
+    skills: [
+      "Natural Language Processing",
+      "Recurrent Neural Networks (RNNs)",
+      "Artificial Neural Networks",
+      "Text Mining",
+      "Embeddings",
+      "Tensorflow",
+      "Machine Learning",
+      "Generative AI",
+      "Data Preprocessing",
+      "Applied Machine Learning",
+    ],
   },
   {
     title:
@@ -124,6 +286,23 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/51UFSYCXKR4J",
+    previewAsset: {
+      src: "/introduction-to-tensorflow-ai-ml-dl.png",
+      alt: "Introduction to TensorFlow for AI, ML, and Deep Learning certificate preview",
+    },
+    skills: [
+      "Data Preprocessing",
+      "Tensorflow",
+      "Computer Vision",
+      "Artificial Intelligence",
+      "Artificial Neural Networks",
+      "Image Analysis",
+      "Keras (Neural Network Library)",
+      "Convolutional Neural Networks",
+      "Machine Learning",
+      "Deep Learning",
+      "Model Evaluation",
+    ],
   },
   {
     title: "Convolutional Neural Networks in TensorFlow",
@@ -131,6 +310,24 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/PQQ7NMAXPXAG",
+    previewAsset: {
+      src: "/convolutional-neural-networks-in-tensorflow.png",
+      alt: "Convolutional Neural Networks in TensorFlow certificate preview",
+    },
+    skills: [
+      "Computer Vision",
+      "Image Analysis",
+      "Tensorflow",
+      "Deep Learning",
+      "Model Evaluation",
+      "Machine Learning",
+      "Classification Algorithms",
+      "Keras (Neural Network Library)",
+      "Data Preprocessing",
+      "Transfer Learning",
+      "Applied Machine Learning",
+      "Convolutional Neural Networks",
+    ],
   },
   {
     title: "Sequences, Time Series and Prediction",
@@ -138,6 +335,23 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/7RQNK51PO41V",
+    previewAsset: {
+      src: "/sequences-time-series-and-prediction.png",
+      alt: "Sequences, Time Series and Prediction certificate preview",
+    },
+    skills: [
+      "Machine Learning",
+      "Forecasting",
+      "Artificial Neural Networks",
+      "Deep Learning",
+      "Recurrent Neural Networks (RNNs)",
+      "Data Preprocessing",
+      "Applied Machine Learning",
+      "Convolutional Neural Networks",
+      "Time Series Analysis and Forecasting",
+      "Predictive Modeling",
+      "Tensorflow",
+    ],
   },
   {
     title: "Improving your Statistical Inferences",
@@ -145,6 +359,23 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/LMJI0W969KHG",
+    previewAsset: {
+      src: "/improving-your-statistical-inferences.png",
+      alt: "Improving your Statistical Inferences certificate preview",
+    },
+    skills: [
+      "Scientific Methods",
+      "Statistical Hypothesis Testing",
+      "Probability & Statistics",
+      "R Programming",
+      "Quantitative Research",
+      "Statistical Inference",
+      "Sample Size Determination",
+      "Bayesian Statistics",
+      "Data Sharing",
+      "Research",
+      "Statistical Analysis",
+    ],
   },
   {
     title: "Improving Your Statistical Questions",
@@ -152,6 +383,24 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/verify/6GGN9RDGO33L",
+    previewAsset: {
+      src: "/improving-your-statistical-questions.png",
+      alt: "Improving Your Statistical Questions certificate preview",
+    },
+    skills: [
+      "Experimentation",
+      "Statistical Inference",
+      "Statistical Analysis",
+      "Research Design",
+      "Data Synthesis",
+      "Sample Size Determination",
+      "Data Sharing",
+      "Statistical Methods",
+      "Science and Research",
+      "Research",
+      "R Programming",
+      "Quantitative Research",
+    ],
   },
   {
     title: "Leadership & Management Development Programme",
@@ -159,6 +408,20 @@ const certifications = [
     category: "Leadership",
     credentialUrl:
       "https://www.linkedin.com/in/dinuja-perera/overlay/Certifications/1700553887/treasury?profileId=ACoAABWgzJUBfucuc3Asv13KRe87vpbYo5OLWK0",
+    previewAsset: {
+      src: "/leadership-and-management-development-programme.png",
+      alt: "Leadership and Management Development Programme certificate preview",
+    },
+    skills: [
+      "Leadership & Management",
+      "Stakeholder Communication",
+      "Strategic Decision Making",
+      "Teamwork & Collaboration",
+      "Negotiation",
+      "Project Leadership",
+      "Applied Research Delivery",
+      "Industry Collaboration",
+    ],
   },
   {
     title: "Knowledge Transfer Partnership Associate",
@@ -171,6 +434,10 @@ const certifications = [
     category: "Industry",
     credentialUrl:
       "https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/British%20Airways/NjynCWzGSaWXQCxSX_British%20Airways_NcCmkqNi2obQmzsZa_1712446000711_completion_certificate.pdf",
+    previewAsset: {
+      src: "/british-airways-data-science-job-simulation.png",
+      alt: "British Airways Data Science Job Simulation certificate preview",
+    },
   },
   {
     title: "Amazon Web Services Machine Learning Essential Training",
@@ -178,6 +445,15 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.linkedin.com/learning/certificates/8f2c5cdb5e35f3559e2971b8784d76dc002d8cd6863ed4e145b1bbaf1d7f2796?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B9KzYwmCkTIiRXOpMYtLhNQ%3D%3D",
+    previewAsset: {
+      src: "/amazon-web-services-machine-learning-essential-training.png",
+      alt: "Amazon Web Services Machine Learning Essential Training certificate preview",
+    },
+    skills: [
+      "Machine Learning",
+      "Artificial Intelligence (AI)",
+      "Amazon Web Services (AWS)",
+    ],
   },
   {
     title: "Python Practice: Object-Oriented Programming",
@@ -185,6 +461,14 @@ const certifications = [
     category: "Technical",
     credentialUrl:
       "https://www.linkedin.com/learning/certificates/cdc9e826f74c801ffeba421bc42740fcee93e45671d57de05bc0fc02a185c16b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3B9KzYwmCkTIiRXOpMYtLhNQ%3D%3D",
+    previewAsset: {
+      src: "/python-practice-object-oriented-programming.png",
+      alt: "Python Practice Object-Oriented Programming certificate preview",
+    },
+    skills: [
+      "Python (Programming Language)",
+      "Object-Oriented Programming (OOP)",
+    ],
   },
   {
     title: "Advanced NLP",
@@ -209,7 +493,7 @@ const certifications = [
 ] as const;
 
 const certificationStyles: Record<
-  (typeof certifications)[number]["category"],
+  Certification["category"],
   {
     badge: string;
     panel: string;
@@ -651,77 +935,176 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
             </CardHeader>
             <CardContent className="py-6">
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-                {certifications.map((certificate) => {
+                {certifications.map((certificate, index) => {
                   const style = certificationStyles[certificate.category];
                   const CertificateIcon = style.icon;
+                  const showPreviewOnLeft = index % 4 === 3;
 
                   return (
                     <div
                       key={certificate.title}
-                      className={`h-full overflow-hidden rounded-[2rem] ring-1 ring-slate-200/80 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] transition-all dark:ring-slate-700/80 dark:shadow-[0_14px_36px_-22px_rgba(2,6,23,0.65)] ${style.panel} hover:-translate-y-0.5 hover:shadow-lg`}
+                      className="group/certificate relative h-full"
                     >
-                      <div className={`h-3 bg-gradient-to-r ${style.accent}`} />
-                      <div className="flex h-full min-h-[14.5rem] flex-col px-4 py-3">
-                        <div className="mb-3 flex items-start justify-between gap-3">
-                          <div>
-                            <Badge
-                              className={`${style.badge} px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]`}
+                      <div
+                        className={`h-full overflow-hidden rounded-[2rem] ring-1 ring-slate-200/80 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] transition-all dark:ring-slate-700/80 dark:shadow-[0_14px_36px_-22px_rgba(2,6,23,0.65)] ${style.panel} hover:-translate-y-0.5 hover:shadow-lg`}
+                      >
+                        <div
+                          className={`h-3 bg-gradient-to-r ${style.accent}`}
+                        />
+                        <div className="flex h-full min-h-[14.5rem] flex-col px-4 py-3">
+                          <div className="mb-3 flex items-start justify-between gap-3">
+                            <div>
+                              <Badge
+                                className={`${style.badge} px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]`}
+                              >
+                                {certificate.category}
+                              </Badge>
+                              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                                <HighlightedText
+                                  text={certificate.issuer}
+                                  keywords={keywords}
+                                />
+                              </p>
+                            </div>
+                            <div
+                              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${style.accent} text-white shadow-md`}
                             >
-                              {certificate.category}
-                            </Badge>
-                            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                              <CertificateIcon
+                                className="h-4 w-4"
+                                aria-hidden="true"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="mb-3 flex-1">
+                            <h4
+                              className={`text-lg font-semibold leading-snug ${style.text}`}
+                            >
                               <HighlightedText
-                                text={certificate.issuer}
+                                text={certificate.title}
                                 keywords={keywords}
                               />
-                            </p>
+                            </h4>
                           </div>
-                          <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${style.accent} text-white shadow-md`}>
-                            <CertificateIcon
-                              className="h-4 w-4"
-                              aria-hidden="true"
-                            />
-                          </div>
+
+                          {certificate.skills?.length ? (
+                            <SkillsOverflowChips skills={certificate.skills} />
+                          ) : null}
+
+                          {certificate.credentialUrl ? (
+                            <a
+                              href={certificate.credentialUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className={`mt-auto mb-1 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-3.5 py-2 text-xs font-semibold transition-colors ${style.button}`}
+                            >
+                              <ExternalLink
+                                className="h-3.5 w-3.5"
+                                aria-hidden="true"
+                              />
+                              Show in Full
+                            </a>
+                          ) : (
+                            <div className="mt-auto mb-1 inline-flex w-full items-center justify-center rounded-2xl bg-slate-200 px-3.5 py-2 text-xs font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                              Internal Listing
+                            </div>
+                          )}
                         </div>
-
-                        <div className="mb-3 flex-1">
-                          <h4
-                            className={`text-lg font-semibold leading-snug ${style.text}`}
-                          >
-                            <HighlightedText
-                              text={certificate.title}
-                              keywords={keywords}
-                            />
-                          </h4>
-                        </div>
-
-                        {certificate.credentialUrl && (
-                          <div className="mb-3">
-                            <span className="rounded-full bg-slate-800 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white dark:bg-slate-100 dark:text-slate-900">
-                              Verified
-                            </span>
-                          </div>
-                        )}
-
-                        {certificate.credentialUrl ? (
-                          <a
-                            href={certificate.credentialUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className={`mt-auto mb-1 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-3.5 py-2 text-xs font-semibold transition-colors ${style.button}`}
-                          >
-                            <ExternalLink
-                              className="h-3.5 w-3.5"
-                              aria-hidden="true"
-                            />
-                            Show Credential
-                          </a>
-                        ) : (
-                          <div className="mt-auto mb-1 inline-flex w-full items-center justify-center rounded-2xl bg-slate-200 px-3.5 py-2 text-xs font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-                            Internal Listing
-                          </div>
-                        )}
                       </div>
+
+                      {certificate.previewAsset && (
+                        <div
+                          className={`pointer-events-none absolute top-1/2 z-30 hidden w-[37rem] -translate-y-1/2 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] xl:block ${
+                            showPreviewOnLeft
+                              ? "right-full -translate-x-12 group-hover/certificate:-translate-x-2 group-focus-within/certificate:-translate-x-2"
+                              : "left-full translate-x-12 group-hover/certificate:translate-x-2 group-focus-within/certificate:translate-x-2"
+                          } group-hover/certificate:opacity-100 group-focus-within/certificate:opacity-100`}
+                          aria-hidden="true"
+                        >
+                          <div
+                            className={`absolute top-1/2 z-20 h-10 w-[6.5rem] -translate-y-1/2 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                              showPreviewOnLeft
+                                ? "left-full -translate-x-[1px] group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
+                                : "right-full translate-x-[1px] group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
+                            }`}
+                          >
+                            <svg
+                              viewBox="0 0 72 40"
+                              className={`h-full w-full overflow-visible drop-shadow-[0_0_14px_rgba(56,189,248,0.42)] ${
+                                showPreviewOnLeft ? "scale-x-[-1]" : ""
+                              }`}
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <defs>
+                                <linearGradient
+                                  id={`certificate-preview-arrow-${index}`}
+                                  x1="8"
+                                  y1="20"
+                                  x2="68"
+                                  y2="20"
+                                  gradientUnits="userSpaceOnUse"
+                                >
+                                  <stop stopColor="#38bdf8" />
+                                  <stop offset="0.5" stopColor="#3b82f6" />
+                                  <stop offset="1" stopColor="#6366f1" />
+                                </linearGradient>
+                              </defs>
+                              <circle cx="8" cy="20" r="4.2" fill="#22d3ee" />
+                              <path
+                                d="M10 20H56"
+                                stroke={`url(#certificate-preview-arrow-${index})`}
+                                strokeWidth="4"
+                                strokeLinecap="round"
+                              />
+                              <path
+                                d="M50 10L68 20L50 30"
+                                fill="none"
+                                stroke={`url(#certificate-preview-arrow-${index})`}
+                                strokeWidth="4.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          <div className="relative z-0 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/95 p-3 shadow-2xl backdrop-blur transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)] group-focus-within/certificate:shadow-[0_26px_60px_-22px_rgba(15,23,42,0.38)] dark:border-slate-700 dark:bg-slate-900/95">
+                            <div className="mb-3 flex items-center justify-between gap-3">
+                              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
+                                Certificate Preview
+                              </p>
+                              <div
+                                className={`h-2.5 w-16 rounded-full bg-gradient-to-r ${style.accent}`}
+                              />
+                            </div>
+                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800">
+                              <Image
+                                src={certificate.previewAsset.src}
+                                alt={certificate.previewAsset.alt}
+                                width={704}
+                                height={512}
+                                className="h-auto w-full object-contain"
+                              />
+                            </div>
+                            {certificate.skills?.length ? (
+                              <div className="mt-3">
+                                <p className="mb-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                                  Skills covered
+                                </p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {certificate.skills.map((skill) => (
+                                    <span
+                                      key={`${certificate.title}-${skill}`}
+                                      className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    >
+                                      {skill}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
