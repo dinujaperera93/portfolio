@@ -113,6 +113,14 @@ const skillCategories = [
   },
 ] as const;
 
+const marqueeSkills = skillCategories.flatMap((category) =>
+  category.skills.map((skill) => ({
+    key: `${category.title}-${skill}`,
+    label: skill,
+    category,
+  })),
+);
+
 interface SkillsProps {
   keywords?: string[];
 }
@@ -186,6 +194,36 @@ const skillIconColorMap: Record<string, string> = {
   PCA: "text-indigo-600 dark:text-indigo-400",
 };
 
+function getSkillVisuals(
+  skill: string,
+  category: (typeof skillCategories)[number],
+) {
+  const SkillIcon = skillIconMap[skill] ?? category.icon;
+  const usesNeutralIconTile =
+    skill === "PCA" ||
+    skill === "AWS S3" ||
+    skill === "Excel Pivot Tables" ||
+    skill === "Power BI" ||
+    skill === "Tableau" ||
+    skill === "LLM" ||
+    category.title === "ML Models & Techniques" ||
+    Boolean(skillLogoMap[skill]);
+  const usesLineOnlyIconTile =
+    skill === "PCA" ||
+    skill === "AWS S3" ||
+    skill === "Excel Pivot Tables" ||
+    skill === "Power BI" ||
+    skill === "Tableau" ||
+    skill === "LLM" ||
+    category.title === "ML Models & Techniques";
+
+  return {
+    SkillIcon,
+    usesNeutralIconTile,
+    usesLineOnlyIconTile,
+  };
+}
+
 const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
   <div className="py-8 px-6">
     <div className="max-w-7xl mx-auto">
@@ -205,6 +243,61 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
           A comprehensive toolkit for building intelligent systems
         </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="relative mb-16 overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/75 py-6 shadow-[0_24px_80px_-40px_rgba(15,23,42,0.3)] backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/60"
+      >
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90" />
+
+        <div className="flex w-max animate-skills-marquee gap-4 pr-4 md:gap-5 md:pr-5">
+          {[...marqueeSkills, ...marqueeSkills].map((skill, index) => {
+            const { SkillIcon, usesNeutralIconTile, usesLineOnlyIconTile } =
+              getSkillVisuals(skill.label, skill.category);
+
+            return (
+              <div
+                key={`${skill.key}-${index}`}
+                className="flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-[2rem] px-3 text-center dark:border-slate-700/80 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"
+              >
+                <div
+                  className={`mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border-slate-200/70 dark:border-slate-700 ${
+                    usesLineOnlyIconTile
+                      ? "bg-white text-orange-500 dark:bg-slate-900"
+                      : usesNeutralIconTile
+                        ? "bg-white dark:bg-slate-900"
+                        : `bg-gradient-to-br ${skill.category.color} text-white`
+                  }`}
+                >
+                  {skillLogoMap[skill.label] ? (
+                    <img
+                      src={skillLogoMap[skill.label]}
+                      alt={`${skill.label} logo`}
+                      className="h-5 w-5 object-contain"
+                    />
+                  ) : (
+                    <SkillIcon
+                      className={`h-5 w-5 ${
+                        usesLineOnlyIconTile
+                          ? (skillIconColorMap[skill.label] ??
+                            "text-orange-500 dark:text-orange-400")
+                          : ""
+                      }`}
+                    />
+                  )}
+                </div>
+                <p className="line-clamp-2 text-sm font-semibold leading-tight text-slate-700 dark:text-slate-200">
+                  {skill.label}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </motion.div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -229,24 +322,11 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
                       skill,
                     ),
                   );
-                  const SkillIcon = skillIconMap[skill] ?? category.icon;
-                  const usesNeutralIconTile =
-                    skill === "PCA" ||
-                    skill === "AWS S3" ||
-                    skill === "Excel Pivot Tables" ||
-                    skill === "Power BI" ||
-                    skill === "Tableau" ||
-                    skill === "LLM" ||
-                    category.title === "ML Models & Techniques" ||
-                    Boolean(skillLogoMap[skill]);
-                  const usesLineOnlyIconTile =
-                    skill === "PCA" ||
-                    skill === "AWS S3" ||
-                    skill === "Excel Pivot Tables" ||
-                    skill === "Power BI" ||
-                    skill === "Tableau" ||
-                    skill === "LLM" ||
-                    category.title === "ML Models & Techniques";
+                  const {
+                    SkillIcon,
+                    usesNeutralIconTile,
+                    usesLineOnlyIconTile,
+                  } = getSkillVisuals(skill, category);
                   return (
                     <div
                       key={skill}
@@ -261,8 +341,8 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
                           usesLineOnlyIconTile
                             ? "bg-transparent shadow-none"
                             : usesNeutralIconTile
-                            ? "bg-white dark:bg-slate-900"
-                            : `bg-gradient-to-br ${category.color} text-white`
+                              ? "bg-white dark:bg-slate-900"
+                              : `bg-gradient-to-br ${category.color} text-white`
                         }`}
                       >
                         {skillLogoMap[skill] ? (
@@ -275,7 +355,8 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
                           <SkillIcon
                             className={`h-5 w-5 ${
                               usesLineOnlyIconTile
-                                ? (skillIconColorMap[skill] ?? "text-emerald-600 dark:text-emerald-400")
+                                ? (skillIconColorMap[skill] ??
+                                  "text-emerald-600 dark:text-emerald-400")
                                 : ""
                             }`}
                           />
