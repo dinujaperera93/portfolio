@@ -631,13 +631,50 @@ const educationActiveCircleBorders = [
   "border-indigo-500 dark:border-indigo-400",
 ] as const;
 
+const CERTIFICATE_PREVIEW_REQUIRED_SPACE = 720;
+
 const Education: FC<EducationProps> = ({ keywords = [] }) => {
   const [activeEducationIndex, setActiveEducationIndex] = useState(0);
   const [timelinePaused, setTimelinePaused] = useState(false);
   const [expandedCertificateTitle, setExpandedCertificateTitle] = useState<
     string | null
   >(null);
+  const [previewSideByTitle, setPreviewSideByTitle] = useState<
+    Record<string, "left" | "right">
+  >({});
+  const certificateRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const activeEducation = educationHistory[activeEducationIndex];
+
+  const updatePreviewSide = (
+    title: string,
+    fallbackSide: "left" | "right",
+  ) => {
+    const element = certificateRefs.current[title];
+
+    if (!element) {
+      return;
+    }
+
+    const bounds = element.getBoundingClientRect();
+    const spaceOnLeft = bounds.left;
+    const spaceOnRight = window.innerWidth - bounds.right;
+
+    let nextSide = fallbackSide;
+
+    if (spaceOnRight < CERTIFICATE_PREVIEW_REQUIRED_SPACE) {
+      nextSide = spaceOnLeft > spaceOnRight ? "left" : "right";
+    }
+
+    if (spaceOnLeft < CERTIFICATE_PREVIEW_REQUIRED_SPACE) {
+      nextSide = spaceOnRight >= spaceOnLeft ? "right" : "left";
+    }
+
+    setPreviewSideByTitle((currentSides) =>
+      currentSides[title] === nextSide
+        ? currentSides
+        : { ...currentSides, [title]: nextSide },
+    );
+  };
 
   useEffect(() => {
     if (timelinePaused) {
@@ -992,7 +1029,10 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                 {certifications.map((certificate, index) => {
                   const style = certificationStyles[certificate.category];
                   const CertificateIcon = style.icon;
-                  const showPreviewOnLeft = index % 4 === 3;
+                  const fallbackSide = index % 4 === 3 ? "left" : "right";
+                  const showPreviewOnLeft =
+                    (previewSideByTitle[certificate.title] ?? fallbackSide) ===
+                    "left";
                   const isPreviewExpanded =
                     expandedCertificateTitle === certificate.title;
 
@@ -1000,6 +1040,15 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                     <div
                       key={certificate.title}
                       className="group/certificate relative h-full"
+                      ref={(element) => {
+                        certificateRefs.current[certificate.title] = element;
+                      }}
+                      onMouseEnter={() =>
+                        updatePreviewSide(certificate.title, fallbackSide)
+                      }
+                      onFocusCapture={() =>
+                        updatePreviewSide(certificate.title, fallbackSide)
+                      }
                     >
                       <div
                         className={`h-full overflow-hidden rounded-[2rem] ring-1 ring-slate-200/80 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] transition-all dark:ring-slate-700/80 dark:shadow-[0_14px_36px_-22px_rgba(2,6,23,0.65)] ${style.panel} hover:-translate-y-0.5 hover:shadow-lg`}
@@ -1113,21 +1162,21 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                         <div
                           className={`pointer-events-none absolute top-1/2 z-30 hidden w-[37rem] -translate-y-1/2 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] xl:block ${
                             showPreviewOnLeft
-                              ? "right-full -translate-x-12 group-hover/certificate:-translate-x-2 group-focus-within/certificate:-translate-x-2"
-                              : "left-full translate-x-12 group-hover/certificate:translate-x-2 group-focus-within/certificate:translate-x-2"
+                              ? "right-full -translate-x-36 group-hover/certificate:-translate-x-28 group-focus-within/certificate:-translate-x-28"
+                              : "left-full translate-x-36 group-hover/certificate:translate-x-28 group-focus-within/certificate:translate-x-28"
                           } group-hover/certificate:opacity-100 group-focus-within/certificate:opacity-100`}
                           aria-hidden="true"
                         >
                           <div
-                            className={`absolute top-1/2 z-20 h-10 w-[6.5rem] -translate-y-1/2 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                            className={`absolute top-1/2 z-20 h-40 w-28 -translate-y-1/2 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                               showPreviewOnLeft
-                                ? "left-full -translate-x-[1px] group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
-                                : "right-full translate-x-[1px] group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
+                                ? "left-full group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
+                                : "right-full group-hover/certificate:translate-x-0 group-focus-within/certificate:translate-x-0"
                             }`}
                           >
                             <svg
-                              viewBox="0 0 72 40"
-                              className={`h-full w-full overflow-visible drop-shadow-[0_0_14px_rgba(56,189,248,0.42)] ${
+                              viewBox="0 0 112 160"
+                              className={`h-full w-full overflow-visible ${
                                 showPreviewOnLeft ? "scale-x-[-1]" : ""
                               }`}
                               fill="none"
@@ -1136,31 +1185,37 @@ const Education: FC<EducationProps> = ({ keywords = [] }) => {
                               <defs>
                                 <linearGradient
                                   id={`certificate-preview-arrow-${index}`}
-                                  x1="8"
+                                  x1="0"
                                   y1="20"
-                                  x2="68"
-                                  y2="20"
+                                  x2="112"
+                                  y2="140"
                                   gradientUnits="userSpaceOnUse"
                                 >
-                                  <stop stopColor="#38bdf8" />
-                                  <stop offset="0.5" stopColor="#3b82f6" />
-                                  <stop offset="1" stopColor="#6366f1" />
+                                  <stop stopColor="rgba(59,130,246,0.88)" />
+                                  <stop offset="1" stopColor="rgba(6,182,212,0.88)" />
+                                </linearGradient>
+                                <linearGradient
+                                  id={`certificate-preview-arrow-stroke-${index}`}
+                                  x1="0"
+                                  y1="80"
+                                  x2="112"
+                                  y2="80"
+                                  gradientUnits="userSpaceOnUse"
+                                >
+                                  <stop stopColor="rgba(148,163,184,0.38)" />
+                                  <stop offset="1" stopColor="rgba(96,165,250,0.48)" />
                                 </linearGradient>
                               </defs>
-                              <circle cx="8" cy="20" r="4.2" fill="#22d3ee" />
                               <path
-                                d="M10 20H56"
-                                stroke={`url(#certificate-preview-arrow-${index})`}
-                                strokeWidth="4"
-                                strokeLinecap="round"
+                                d="M0 80L112 0V160L0 80Z"
+                                fill={`url(#certificate-preview-arrow-${index})`}
+                                fillOpacity="0.92"
+                                className="drop-shadow-[0_18px_26px_rgba(148,163,184,0.18)]"
                               />
                               <path
-                                d="M50 10L68 20L50 30"
-                                fill="none"
-                                stroke={`url(#certificate-preview-arrow-${index})`}
-                                strokeWidth="4.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                                d="M0 80L112 0V160L0 80Z"
+                                stroke={`url(#certificate-preview-arrow-stroke-${index})`}
+                                strokeWidth="1.25"
                               />
                             </svg>
                           </div>
