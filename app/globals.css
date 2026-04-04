@@ -13,6 +13,12 @@ body {
   .animate-skills-marquee {
     animation: skills-marquee 68s linear infinite;
   }
+  .animate-skills-marquee:hover {
+    animation-play-state: paused;
+  }
+  .animate-skills-marquee:focus-within {
+    animation-play-state: paused;
+  }
   /* Hide native scrollbars but keep scroll functionality */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
