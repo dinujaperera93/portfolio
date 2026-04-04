@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC } from "react";
+import { Fragment, type FC } from "react";
 import { motion } from "framer-motion";
 import {
   Archive,
@@ -32,6 +32,10 @@ const skillCategories = [
     icon: Code,
     title: "Languages & Frameworks",
     color: "from-blue-500 to-blue-600",
+    marqueeShade:
+      "border-blue-200 bg-blue-50/90 text-blue-950 dark:border-blue-900/70 dark:bg-blue-950/40 dark:text-blue-100",
+    marqueeIconShade:
+      "bg-blue-100 text-blue-700 dark:bg-blue-900/70 dark:text-blue-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: [
       "Python",
@@ -48,6 +52,10 @@ const skillCategories = [
     icon: Cloud,
     title: "Cloud & Infrastructure",
     color: "from-purple-500 to-purple-600",
+    marqueeShade:
+      "border-purple-200 bg-purple-50/90 text-purple-950 dark:border-purple-900/70 dark:bg-purple-950/40 dark:text-purple-100",
+    marqueeIconShade:
+      "bg-purple-100 text-purple-700 dark:bg-purple-900/70 dark:text-purple-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: [
       "Azure Databricks",
@@ -61,6 +69,10 @@ const skillCategories = [
     icon: Database,
     title: "Databases",
     color: "from-pink-500 to-pink-600",
+    marqueeShade:
+      "border-pink-200 bg-pink-50/90 text-pink-950 dark:border-pink-900/70 dark:bg-pink-950/40 dark:text-pink-100",
+    marqueeIconShade:
+      "bg-pink-100 text-pink-700 dark:bg-pink-900/70 dark:text-pink-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: ["MySQL", "DuckDB", "MongoDB", "Cassandra", "Redis", "Neo4j"],
   },
@@ -68,6 +80,10 @@ const skillCategories = [
     icon: BarChart3,
     title: "Analytics & Visualisation",
     color: "from-indigo-500 to-indigo-600",
+    marqueeShade:
+      "border-indigo-200 bg-indigo-50/90 text-indigo-950 dark:border-indigo-900/70 dark:bg-indigo-950/40 dark:text-indigo-100",
+    marqueeIconShade:
+      "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/70 dark:text-indigo-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: [
       "Power BI",
@@ -83,6 +99,10 @@ const skillCategories = [
     icon: Brain,
     title: "ML Models & Techniques",
     color: "from-emerald-500 to-emerald-600",
+    marqueeShade:
+      "border-emerald-200 bg-emerald-50/90 text-emerald-950 dark:border-emerald-900/70 dark:bg-emerald-950/40 dark:text-emerald-100",
+    marqueeIconShade:
+      "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/70 dark:text-emerald-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: [
       "LSTM",
@@ -101,6 +121,10 @@ const skillCategories = [
     icon: Layers,
     title: "Generative AI",
     color: "from-orange-500 to-orange-600",
+    marqueeShade:
+      "border-orange-200 bg-orange-50/90 text-orange-950 dark:border-orange-900/70 dark:bg-orange-950/40 dark:text-orange-100",
+    marqueeIconShade:
+      "bg-orange-100 text-orange-700 dark:bg-orange-900/70 dark:text-orange-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: ["LangChain", "LLM"],
   },
@@ -108,6 +132,10 @@ const skillCategories = [
     icon: Layers,
     title: "Collaboration",
     color: "from-amber-500 to-amber-600",
+    marqueeShade:
+      "border-amber-200 bg-amber-50/90 text-amber-950 dark:border-amber-900/70 dark:bg-amber-950/40 dark:text-amber-100",
+    marqueeIconShade:
+      "bg-amber-100 text-amber-700 dark:bg-amber-900/70 dark:text-amber-200",
     titleColor: "text-blue-700 dark:text-blue-300",
     skills: ["GitHub", "ClickUp", "Confluence"],
   },
@@ -255,48 +283,65 @@ const Skills: FC<SkillsProps> = ({ keywords = [] }) => (
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90" />
 
-        <div className="flex w-max animate-skills-marquee gap-4 pr-4 md:gap-5 md:pr-5">
-          {[...marqueeSkills, ...marqueeSkills].map((skill, index) => {
-            const { SkillIcon, usesNeutralIconTile, usesLineOnlyIconTile } =
-              getSkillVisuals(skill.label, skill.category);
-
-            return (
-              <div
-                key={`${skill.key}-${index}`}
-                className="flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-[2rem] px-3 text-center dark:border-slate-700/80 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"
-              >
-                <div
-                  className={`mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border-slate-200/70 dark:border-slate-700 ${
-                    usesLineOnlyIconTile
-                      ? "bg-white text-orange-500 dark:bg-slate-900"
-                      : usesNeutralIconTile
-                        ? "bg-white dark:bg-slate-900"
-                        : `bg-gradient-to-br ${skill.category.color} text-white`
-                  }`}
+        <div className="flex w-max animate-skills-marquee items-start gap-4 pr-4 md:gap-5 md:pr-5">
+          {[...skillCategories, ...skillCategories].map((category, index) => (
+            <Fragment key={`${category.title}-${index}`}>
+              <div className="flex shrink-0 flex-col items-start gap-2">
+                <p
+                  className={`px-2 text-[11px] font-semibold uppercase tracking-[0.18em] ${category.titleColor}`}
                 >
-                  {skillLogoMap[skill.label] ? (
-                    <img
-                      src={skillLogoMap[skill.label]}
-                      alt={`${skill.label} logo`}
-                      className="h-5 w-5 object-contain"
-                    />
-                  ) : (
-                    <SkillIcon
-                      className={`h-5 w-5 ${
-                        usesLineOnlyIconTile
-                          ? (skillIconColorMap[skill.label] ??
-                            "text-orange-500 dark:text-orange-400")
-                          : ""
-                      }`}
-                    />
-                  )}
-                </div>
-                <p className="line-clamp-2 text-sm font-semibold leading-tight text-slate-700 dark:text-slate-200">
-                  {skill.label}
+                  {category.title}
                 </p>
+
+                <div className="flex gap-4 md:gap-5">
+                  {category.skills.map((skill) => {
+                    const {
+                      SkillIcon,
+                      usesNeutralIconTile,
+                      usesLineOnlyIconTile,
+                    } = getSkillVisuals(skill, category);
+
+                    return (
+                      <div
+                        key={`${category.title}-${skill}-${index}`}
+                        className={`flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-[2rem] border px-3 text-center ${category.marqueeShade}`}
+                      >
+                        <div
+                          className={`mb-3 flex h-12 w-12 items-center justify-center rounded-2xl ${
+                            usesLineOnlyIconTile
+                              ? "bg-white/70 text-orange-500 dark:bg-slate-900/80"
+                              : usesNeutralIconTile
+                                ? "bg-white/80 dark:bg-slate-900/80"
+                                : category.marqueeIconShade
+                          }`}
+                        >
+                          {skillLogoMap[skill] ? (
+                            <img
+                              src={skillLogoMap[skill]}
+                              alt={`${skill} logo`}
+                              className="h-5 w-5 object-contain"
+                            />
+                          ) : (
+                            <SkillIcon
+                              className={`h-5 w-5 ${
+                                usesLineOnlyIconTile
+                                  ? (skillIconColorMap[skill] ??
+                                    "text-orange-500 dark:text-orange-400")
+                                  : ""
+                              }`}
+                            />
+                          )}
+                        </div>
+                        <p className="line-clamp-2 text-sm font-semibold leading-tight">
+                          {skill}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            );
-          })}
+            </Fragment>
+          ))}
         </div>
       </motion.div>
 
