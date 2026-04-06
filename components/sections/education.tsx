@@ -43,6 +43,7 @@ const SkillsOverflowChips: FC<{ skills: readonly string[] }> = ({ skills }) => {
   const measureRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const [visibleCount, setVisibleCount] = useState(skills.length);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const measure = () => {
@@ -92,7 +93,11 @@ const SkillsOverflowChips: FC<{ skills: readonly string[] }> = ({ skills }) => {
     };
   }, [skills]);
 
-  const visibleSkills = skills.slice(0, visibleCount);
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [skills]);
+
+  const visibleSkills = isExpanded ? skills : skills.slice(0, visibleCount);
   const hiddenSkills = skills.slice(visibleCount);
 
   return (
@@ -129,11 +134,22 @@ const SkillsOverflowChips: FC<{ skills: readonly string[] }> = ({ skills }) => {
           </span>
         ))}
 
-        {hiddenSkills.length > 0 && (
-          <span className="inline-flex items-center rounded-full bg-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-200">
-            +{hiddenSkills.length} more
-          </span>
-        )}
+        {hiddenSkills.length > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => setIsExpanded((current) => !current)}
+              className="inline-flex items-center rounded-full bg-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600 transition-colors hover:bg-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 dark:focus-visible:ring-slate-500 xl:hidden"
+              aria-expanded={isExpanded}
+            >
+              {isExpanded ? "Show less" : `+${hiddenSkills.length} more`}
+            </button>
+
+            <span className="hidden items-center rounded-full bg-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-200 xl:inline-flex">
+              +{hiddenSkills.length} more
+            </span>
+          </>
+        ) : null}
       </div>
     </div>
   );
